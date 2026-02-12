@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="%LANG_ISO_CODE%">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-PRGCVVML');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8" />
+  <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- CSP: Allow traffic to Supabase, Google Analytics/Fonts, and own scripts/styles -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://challenges.cloudflare.com;
+    worker-src 'self' blob:;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src 'self' https://fonts.gstatic.com data:;
+    frame-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com;
+    img-src 'self' data: https://*.supabase.co https://www.google-analytics.com https://www.googletagmanager.com https://img.buymeacoffee.com blob:;
+    connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://www.googletagmanager.com blob: data:;
+    media-src 'self' https://*.supabase.co;
+    object-src 'none';
+  ">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <title>Tribiblia - Juego de Trivia Bíblica</title>
+
+  <!-- SEO Fallback for Bots (WhatsApp/Facebook don't run JS) -->
+  <meta name="description" content="Juego de preguntas bíblicas tipo Jeopardy. ¡Demuestra tus conocimientos!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tribiblia.com/" />
+  <meta property="og:title" content="Tribiblia - Juego de Trivia Bíblica" />
+  <meta property="og:description" content="Juego de preguntas bíblicas tipo Jeopardy. ¡Demuestra tus conocimientos!" />
+  <meta property="og:image" content="https://tribiblia.com/social-share.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tribiblia - Juego de Trivia Bíblica" />
+  <meta name="twitter:description" content="Juego de preguntas bíblicas tipo Jeopardy. ¡Demuestra tus conocimientos!" />
+  <meta name="twitter:image" content="https://tribiblia.com/social-share.png" />
+
+  <!-- keywords -->
+  <meta name="keywords"
+    content="Preguntas biblicas, juego biblico, trivia biblica, aprender biblia, jovenes cristianos, escuela dominical, bible trivia, bible jeopardy" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://tribiblia.com/" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Tribiblia",
+      "url": "https://tribiblia.com/",
+      "description": "Juego de preguntas bíblicas tipo Jeopardy para aprender y repasar conocimientos de la Biblia de forma divertida.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://tribiblia.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" href="/icon.png" type="image/png" />
+
+  <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+  <style id="expo-reset">
+    /* These styles make the body full-height */
+    html,
+    body {
+      height: 100%;
+      background-color: #001B3A;
+    }
+
+    /* These styles disable body scrolling if you are using <ScrollView> */
+    body {
+      overflow: hidden;
+    }
+
+    /* These styles make the root element full-height */
+    #root {
+      display: flex;
+      height: 100%;
+      flex: 1;
+    }
+  </style>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-94W6197Y4G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-94W6197Y4G');
+  </script>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRGCVVML" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <!-- The root element for your Expo app. -->
+  <div id="root"></div>
+</body>
+
+</html>

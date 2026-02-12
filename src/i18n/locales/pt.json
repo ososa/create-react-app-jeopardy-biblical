@@ -1,0 +1,290 @@
+{
+    "categories": {
+        "genesis": "🌍 Gênesis",
+        "exodus": "🔥 Êxodo",
+        "gospels": "✝️ Evangelhos",
+        "acts": "📜 Atos",
+        "prophets": "📢 Profetas",
+        "kings": "👑 Reis",
+        "general": "📚 Geral",
+        "old_testament": "📜 Antigo Testamento",
+        "new_testament": "✝️ Novo Testamento",
+        "miracles": "✨ Milagres de Jesus",
+        "geography": "🌍 Geografia Bíblica",
+        "women": "👩🏻 Mulheres da Bíblia"
+    },
+    "common": {
+        "loading": "Carregando...",
+        "error": "Erro",
+        "back": "Voltar",
+        "home": "Início",
+        "success": "Sucesso",
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "menu": "Menu",
+        "myGames": "Minhas Partidas",
+        "leaderboard": {
+            "title": "🏆 Top 10 Jogadores",
+            "empty": "Ainda não há jogadores.",
+            "defaultPlayer": "Jogador"
+        },
+        "logout": "Sair",
+        "classic": "CLÁSSICO",
+        "multiplayer": "MULTIJOGADOR",
+        "rightsReserved": "todos os direitos reservados"
+    },
+    "welcome": {
+        "title": "Bem-vindo ao Tribiblia",
+        "subtitle": "Mostre o quanto você sabe da Bíblia",
+        "hostGame": "Criar Jogo (Host)",
+        "joinGame": "CONTROLE REMOTO (BUZZER)",
+        "admin": "Administrador",
+        "logout": "Sair",
+        "login": "Entrar",
+        "startGame": "INICIAR JOGO",
+        "greeting": "Bem-vindo(a) {{name}}!",
+        "welcomeUser": "Bem-vindo(a)"
+    },
+    "auth": {
+        "email": "E-mail",
+        "password": "Senha",
+        "loginButton": "Entrar",
+        "registerButton": "Registrar",
+        "forgotPassword": "Esqueceu a senha?",
+        "username": "Nome de Usuário (Apelido)",
+        "titleLogin": "Entrar",
+        "titleRegister": "Criar Conta",
+        "chooseAvatar": "Escolha seu Avatar:",
+        "switchToLogin": "Já tem conta? Entrar",
+        "switchToRegister": "Não tem conta? Registrar",
+        "forgotPasswordTitle": "RECUPERAR SENHA",
+        "forgotPasswordSubtitle": "Digite seu e-mail e enviaremos um link para redefinir sua senha.",
+        "emailPlaceholder": "Seu E-mail",
+        "sendLinkButton": "ENVIAR LINK",
+        "backToLogin": "Voltar para o Login",
+        "passwordRecoverySent": "Se o e-mail existir no nosso banco de dados, você receberá instruções para redefinir sua senha.",
+        "resetPasswordTitle": "NOVA SENHA",
+        "resetPasswordSubtitle": "Digite sua nova senha para restaurar o acesso à sua conta.",
+        "newPasswordPlaceholder": "Nova Senha",
+        "confirmPasswordPlaceholder": "Confirmar Senha",
+        "updateButton": "ATUALIZAR",
+        "cancelBackToLogin": "Cancelar / Voltar para o Login",
+        "errors": {
+            "missingEmail": "Por favor, digite seu e-mail",
+            "invalidEmail": "Por favor, digite um e-mail válido",
+            "sendError": "Não foi possível enviar o e-mail.",
+            "missingFields": "Por favor, preencha ambos os campos",
+            "passwordMismatch": "As senhas não coincidem",
+            "passwordTooShort": "A senha deve ter pelo menos 6 caracteres",
+            "updateError": "Não foi possível atualizar a senha."
+        },
+        "success": {
+            "passwordUpdated": "Sua senha foi atualizada."
+        },
+        "joinGame": "ENTRAR NO JOGO (QR)",
+        "registerSuccessTitle": "Registo com Sucesso",
+        "registerSuccessMessage": "A sua conta foi criada! Por favor, verifique o seu email (incluindo a pasta de spam) para confirmar o seu registo antes de iniciar sessão.",
+        "acceptTermsPrefix": "Li e aceito a ",
+        "privacyPolicyLink": "Política de Privacidade",
+        "acceptTermsAnd": " e os ",
+        "termsOfUseLink": "Termos de Uso",
+        "errorTermsRequired": "Você deve aceitar os termos para se registrar."
+    },
+    "join": {
+        "title": "ENTRAR NO JOGO",
+        "nameLabel": "Seu Nome:",
+        "namePlaceholder": "Ex: Davi",
+        "avatarLabel": "Seu Avatar:",
+        "sessionLabel": "Código/ID da Sessão:",
+        "sessionPlaceholder": "Escaneie o QR ou digite o ID",
+        "scanButton": "📷 ESCANEAR QR",
+        "joinButton": "ENTRAR",
+        "backButton": "Voltar",
+        "accessRestricted": "Acesso Restrito",
+        "accessRestrictedMessage": "Você deve fazer login para entrar em um jogo.",
+        "permissionDenied": "Permissão Negada",
+        "permissionDeniedMessage": "Precisamos de acesso à câmera para escanear o QR.",
+        "cameraPermission": "Solicitando permissão da câmera...",
+        "closeCamera": "Fechar Câmera",
+        "scanned": "Escaneado",
+        "idDetected": "ID Detectado: {{id}}",
+        "error": "Erro",
+        "enterNameAndSession": "Por favor, insira seu nome e o ID da sessão"
+    },
+    "profile": {
+        "title": "Meu Perfil",
+        "editProfile": "Editar Perfil",
+        "changePassword": "Mudar Senha",
+        "rank": "Ranking",
+        "xp": "XP",
+        "nextLevel": "Próximo Nível",
+        "stats": {
+            "games": "Jogos",
+            "completed": "Completados",
+            "wins": "Vitórias"
+        },
+        "myGames": "🎮 Meus Jogos:",
+        "inProgress": "EM PROGRESSO",
+        "finished": "CONCLUÍDO",
+        "noGames": "Nenhum jogo salvo.",
+        "resume": "▶️ REINICIAR",
+        "viewResults": "📜 VER RESULTADOS",
+        "sections": {
+            "avatar": "SEU AVATAR",
+            "data": "SEUS DADOS",
+            "language": "IDIOMA"
+        },
+        "fields": {
+            "playerNameLabel": "NOME DO JOGADOR",
+            "playerNamePlaceholder": "Digite seu nome...",
+            "passwordLabel": "NOVA SENHA (OPCIONAL)",
+            "passwordPlaceholder": "Mínimo 6 caracteres"
+        },
+        "saveChanges": "SALVAR ALTERAÇÕES"
+    },
+    "gamification": {
+        "xp": "EXPERIÊNCIA",
+        "ranks": {
+            "explorer": "Explorador Bíblico",
+            "shepherd": "Pastor de Ovelhas",
+            "disciple": "Discípulo Fiel",
+            "master": "Mestre da Lei"
+        }
+    },
+    "game": {
+        "waiting": "Aguardando jogadores...",
+        "team": "Equipe",
+        "score": "Pontuação",
+        "gameOver": "Fim de Jogo",
+        "winner": "Vencedor",
+        "turn": "VEZ DE",
+        "streak": "SEQUÊNCIA",
+        "exit": "SAIR",
+        "done": "FEITO",
+        "menuTitle": "Menu de Jogo",
+        "editGame": "Editar Jogo",
+        "exitGame": "Sair de Jogo",
+        "buzz": "CAMPAINHA!",
+        "buzzMessage": "Jogador {{id}} apertou o botão!",
+        "insertingCoin": "INSERINDO MOEDA...",
+        "timeUp": "ACABOU O TEMPO!",
+        "bonus": "COMBO X3!",
+        "points": "PTS",
+        "exitConfirmTitle": "Sair do Jogo?",
+        "exitConfirmMessage": "Tem certeza que deseja sair? Seu progresso será salvo automaticamente.",
+        "feedback": {
+            "correct": "CORRETA!",
+            "incorrect": "INCORRETA!",
+            "correctAnswerIs": "A resposta correta é:",
+            "timeUp": "TEMPO ESGOTADO!"
+        }
+    },
+    "instructions": {
+        "title": "COMO JOGAR",
+        "whatIsTitle": "O QUE É",
+        "whatIsBody": "é um aplicativo de perguntas bíblicas para aprender, revisar e fortalecer seu conhecimento da Palavra enquanto joga. Seu formato ágil transforma o estudo bíblico em uma experiência divertida e motivadora, ideal para jovens, famílias e grupos de igreja. Jogue em equipe ou sozinho, acumule pontos e viva um desafio divertido com propósito enquanto aprendem e crescem juntos.",
+        "howToPlayTitle": "COMO JOGAR",
+        "howToPlayBody": "O jogo é jogado em turnos entre duas equipes. Na sua vez, você escolhe uma pergunta dentro de uma categoria e tem 30 segundos para responder. Você pode jogar 1 vs 1 ou 4 vs 4.\nCada acerto soma pontos e uma sequência de 3 corretas dá pontos adicionais.\nA equipe com mais pontos vence."
+    },
+    "gameOver": {
+        "title": "FIM DE JOGO",
+        "winner": "{{name}} VENCEU!",
+        "draw": "EMPATE!",
+        "xpMessage": "+50 XP Ganhos! 🌟",
+        "restart": "REINICIAR"
+    },
+    "controller": {
+        "title": "CONTROLE REMOTO",
+        "points": "pts",
+        "buzz": "BUZZ",
+        "buzzed": "ENVIADO!",
+        "instructionsActive": "Pressione se souber a resposta!",
+        "instructionsIdle": "Aguarde o anfitrião ler a pergunta.",
+        "exit": "Sair",
+        "welcome": "Olá {{avatar}} {{name}}!",
+        "winner": "Vencedor: {{name}}",
+        "selectAnswer": "Selecione a resposta"
+    },
+    "teamConfig": {
+        "activeGamesTitle": "PARTIDAS EM CURSO 🔥",
+        "createNewGameTitle": "CRIAR NOVO JOGO 🕹️",
+        "resume": "RETOMAR",
+        "title": "CONFIGURAÇÃO DA EQUIPE",
+        "team1": "EQUIPE 1",
+        "team1Placeholder": "Nome da Equipe 1",
+        "team2": "EQUIPE 2",
+        "team2Placeholder": "Nome da Equipe 2",
+        "multiplayer": "MULTIPLAYER",
+        "createSession": "CRIAR SESSÃO",
+        "joinScan": "ESCANIE PARA ENTRAR:",
+        "sessionCode": "CÓDIGO DA SESSÃO:",
+        "connectedPlayers": "JOGADORES CONECTADOS",
+        "startGame": "INICIAR JOGO",
+        "editTitle": "EDITAR EQUIPES",
+        "setupTitle": "CONFIGURAÇÃO DO JOGO",
+        "classicMode": "CLÁSSICO (1v1)",
+        "multiplayerMode": "MULTIPLAYER (4v4)",
+        "durationTitle": "DURAÇÃO DO JOGO",
+        "durationFlash": "FLASH\n(5 min)",
+        "durationShort": "CURTO\n(15 min)",
+        "durationFull": "COMPLETO\n(30 min)",
+        "addPlayer": "+ Adicionar Jogador",
+        "remoteConnection": "CONEXÃO REMOTA (QR BUZZER)",
+        "connectedBuzzers": "Conectado (Buzzer)",
+        "saveAndContinue": "SALVAR E CONTINUAR",
+        "modalAddPlayerTitle": "Adicionar jogador à equipe {{teamId}}",
+        "playerPlaceholder": "Nome do Jogador",
+        "modalCancel": "Cancelar",
+        "modalAdd": "Adicionar",
+        "alerts": {
+            "duplicateTitle": "Nome duplicado",
+            "duplicateMessage": "O jogador \"{{name}}\" já está na lista.",
+            "missingPlayersTitle": "Jogadores ausentes",
+            "missingPlayersMessage": "No modo Multiplayer, você deve adicionar pelo menos um jogador por equipe.",
+            "saveErrorTitle": "Erro",
+            "saveErrorMessage": "Não foi possível salvar as alterações.",
+            "autoCreateErrorTitle": "Erro",
+            "autoCreateErrorMessage": "Não foi possível criar sessão para salvar o jogo.",
+            "startErrorTitle": "Erro",
+            "startErrorMessage": "Erro ao iniciar o jogo no servidor.",
+            "permissionsWarningTitle": "Aviso",
+            "permissionsWarningMessage": "Não foi possível salvar o jogo no histórico (Permissões)."
+        }
+    },
+    "languages": {
+        "es": "Espanhol",
+        "en": "Inglês",
+        "pt": "Português"
+    },
+    "footer": {
+        "about": "Sobre Nós",
+        "privacy": "Política de Privacidade",
+        "terms": "Termos de Uso",
+        "cookies": "Cookies"
+    },
+    "pages": {
+        "about": {
+            "title": "SOBRE NÓS",
+            "body": "Na TRIBIBLIA®, acreditamos que aprender a Bíblia não precisa parecer complicado ou distante. Por isso criamos uma experiência ágil e divertida que ajuda você a revisar, memorizar e fortalecer seu conhecimento da Palavra enquanto joga. Aqui, cada pergunta é uma oportunidade para descobrir, lembrar e se conectar com as Escrituras de uma forma dinâmica e motivadora.\n\nA TRIBIBLIA® funciona com um formato simples: você escolhe uma categoria, responde dentro de um limite de tempo e soma pontos. Você pode jogar sozinho ou em equipes, o que a torna ideal para jovens, famílias, amigos e grupos de igreja. A competição saudável, as sequências e os pontos bônus transformam cada partida em um desafio emocionante com um propósito: aprender mais e compartilhar esse aprendizado com os outros.\n\nNossa missão é que o estudo bíblico se torne parte do dia a dia, sem pressão e com entusiasmo. Queremos que a TRIBIBLIA® seja uma ferramenta útil para reuniões, noites de jovens, encontros familiares ou qualquer momento em que você queira testar o que sabe e continuar crescendo. Continuamos trabalhando para adicionar novas categorias, mais perguntas, melhorias no jogo e uma experiência cada vez mais completa.\n\nSe você quiser nos enviar sugestões, relatar algum detalhe ou simplesmente entrar em contato conosco, escreva para info@tribiblia.com. Adoraríamos ler sua mensagem e continuar construindo esta comunidade com você.\n\nE como a TRIBIBLIA® é um aplicativo gratuito, seu apoio pode fazer uma grande diferença. Se este projeto te abençoa e agrega valor, convidamos você a colaborar conosco para que possamos continuar desenvolvendo-o, somando conteúdo e levando o app a mais pessoas. Você pode fazer isso de forma simples pelo botão Buy Me a Coffee: cada contribuição, por menor que seja, nos ajuda a continuar crescendo e melhorando a TRIBIBLIA® para toda a comunidade. 🙌📖"
+        },
+        "privacy": {
+            "title": "POLÍTICA DE PRIVACIDADE",
+            "body1": "Última atualização: Janeiro 2026\n\n**1) Responsável pelo tratamento**\nDMediaGroup SRL (“TRIBIBLIA®”, “nós”), com sede em Santo Domingo, República Dominicana, é responsável pelo tratamento dos dados pessoais coletados através do tribiblia.com (a “Plataforma”).\nContato de privacidade: info@tribiblia.com\n\n**2) Que dados coletamos**\n**A. Dados que você fornece**\nE-mail (registro e recuperação de conta).\nNome de usuário.\nAvatar (em formato texto/emoji selecionado pelo usuário).\n\n**B. Dados coletados automaticamente**\nEndereço IP e dados de conexão (segurança e funcionamento).\nEstatísticas de jogo (por exemplo, pontuações, progresso, histórico de partidas).\nDados técnicos do dispositivo/navegador (diagnóstico, estabilidade, prevenção de abuso).\nCookies/identificadores (ver Política de Cookies).\n\n**3) Para que usamos seus dados**\nUsamos seus dados para:\nCriar e administrar sua conta, permitir o acesso e salvar seu progresso.\nOperar o jogo e suas funções (categorias, pontuações, histórico).\nManter a segurança, prevenir fraude/abuso e depurar erros.\nMedir o uso da Plataforma e melhorar a experiência (análise).",
+            "body2": "**4) Base legal (quando se aplica GDPR/Europa)**\nQuando aplicável (por exemplo, se você acessa do EEE/Reino Unido), tratamos dados sob:\nExecução do serviço/contrato (conta e funcionalidade do jogo).\nInteresse legítimo (segurança, prevenção de abuso, melhorias técnicas).\nConsentimento (especialmente para cookies não essenciais onde a lei o exija).\nNota importante: atualmente não mostramos um banner de cookies. Você pode gerenciar cookies do seu navegador. Se você estiver em jurisdições onde se exija consentimento prévio para análise, recomendamos desativar cookies/rastreamento do seu navegador ou usar ferramentas de exclusão (ver Cookies).\n\n**5) Terceiros e fornecedores**\nCompartilhamos apenas o necessário com fornecedores para operar a Plataforma:\nSupabase: banco de dados e autenticação (DB/Auth). Supabase dispõe de um Adendo de Processamento de Dados (DPA) e contempla mecanismos para transferências internacionais como SCCs.\nHostinger: hospedagem/infraestrutura onde o PWA está hospedado. Hostinger publica localizações de centros de dados e um DPA.\nGoogle Analytics (GA): medição de uso da web mediante cookies/identificadores e dados do navegador. Google oferece controles de privacidade e opções de exclusão (ver Cookies).\nBuy Me a Coffee: processa contribuições voluntárias. Não armazenamos dados de cartão; o pagamento é gerenciado pelo terceiro segundo suas políticas.\n\n**6) Transferências internacionais**\nAo usar fornecedores globais (por exemplo, Supabase, Google ou Hostinger), os dados podem ser tratados fora do seu país. Quando corresponda, tais fornecedores contemplam mecanismos contratuais para transferências internacionais (p. ex., SCCs).\n\n**7) Conservação de dados**\nConservamos seus dados:\nEnquanto sua conta estiver ativa, e/ou até que solicite a exclusão.\nAlguns registros técnicos (segurança/erros) podem ser conservados por um período adicional limitado por razões de segurança e cumprimento.",
+            "body3": "**8) Seus direitos**\nVocê pode solicitar acesso, retificação, exclusão ou outras ações aplicáveis segundo sua jurisdição escrevendo para info@tribiblia.com.\nSe você estiver no EEE/Reino Unido, também pode apresentar uma reclamação perante sua autoridade local de proteção de dados.\n\n**9) Menores**\nA TRIBIBLIA® é dirigida ao público geral. Recomendamos supervisão de um adulto quando menores utilizarem a Plataforma. Não buscamos coletar intencionalmente dados de crianças de forma contrária à normativa aplicável (por exemplo, COPPA nos EUA).\n\n**10) Segurança**\nAplicamos medidas razoáveis para proteger a informação (controles de acesso, boas práticas de segurança e uso de fornecedores com medidas técnicas/organizacionais). Supabase descreve sua abordagem contratual e de segurança através de sua documentação/DPA.\n\n**11) Alterações nesta política**\nPodemos atualizar esta Política. Publicaremos a nova data de “Última atualização” e, se a mudança for material, faremos esforços razoáveis para informá-lo na Plataforma."
+        },
+        "terms": {
+            "title": "TERMOS DE USO",
+            "body1": "Última atualização: Janeiro 2026\n\n**1) Aceitação**\nAo acessar ou usar a TRIBIBLIA® (a “Plataforma”), você concorda com estes Termos. Se você não concordar, não use a Plataforma.\n\n**2) O que é a TRIBIBLIA®**\nA TRIBIBLIA® é um web app (PWA) acessível por navegadores em dispositivos móveis e desktop. Atualmente não é distribuída como app nativo na App Store/Play Store.\n\n**3) Uso permitido**\nVocê pode usar a TRIBIBLIA® para fins pessoais, educativos e recreativos. Você se compromete a não:\nViolar a segurança, tentar acesso não autorizado ou interferir no funcionamento.\nAutomatizar o uso de forma abusiva (bots, scraping de perguntas, ataques, spam).\nUsar a Plataforma para fins ilegais ou que infrinjam direitos de terceiros.\n\n**4) Contas**\nVocê é responsável pela confidencialidade da sua conta e pelo uso feito a partir dela. Podemos suspender ou limitar contas se detectarmos abuso, fraude ou violação destes Termos.",
+            "body2": "**5) Propriedade Intelectual**\nA Plataforma (marca, design, software, perguntas/estrutura e conteúdos próprios) pertence à TRIBIBLIA® ou aos seus licenciadores. É concedida a você uma licença limitada e revogável para usá-la de acordo com estes Termos.\n\n**6) Serviço Gratuito e Contribuições**\nA TRIBIBLIA® é uma plataforma gratuita. Se desejar apoiar o projeto, pode contribuir através do Buy Me a Coffee. As contribuições são voluntárias e o processamento é realizado por um terceiro; a TRIBIBLIA® não administra dados de cartão nem garante benefícios ou contrapartidas pela contribuição.\n\n**7) Disponibilidade**\nPodemos modificar, suspender ou interromper a Plataforma total o parcialmente, bem como adicionar ou remover funções, sem obrigação de manter uma disponibilidade ininterrupta.\n\n**8) Isenção de Garantias**\nA Plataforma é oferecida “tal como está” e “conforme disponibilidade”, sem garantias de ausência total de erros ou disponibilidade contínua.",
+            "body3": "**9) Limitação de Responsabilidade**\nNa medida máxima permitida por lei, a TRIBIBLIA® não será responsável por danos indiretos, incidentais ou consequentes decorrentes do uso ou impossibilidade de uso da Plataforma.\n\n**10) Menores**\nA Plataforma é dirigida ao público geral. Para menores, recomenda-se supervisão de um adulto.\n\n**11) Lei Aplicável e Jurisdição**\nEstes Termos regem-se pelas leis da República Dominicana. Qualquer disputa será submetida aos tribunais competentes de Santo Domingo, República Dominicana, salvo normas imperativas aplicáveis pela residência do usuário.\n\n**12) Contato**\nSuporte e consultas: info@tribiblia.com"
+        },
+        "cookies": {
+            "title": "POLÍTICA DE COOKIES",
+            "body1": "Última atualização: Janeiro 2026\n\n**1) O que são cookies**\nCookies são pequenos arquivos armazenados no seu dispositivo para habilitar funções, lembrar preferências e medir o uso do site.\n\n**2) Que cookies usamos**\nTRIBIBLIA® pode usar:\nCookies estritamente necessários: permitem funções básicas (segurança, sessão, estabilidade).\nCookies de preferências: salvam opções básicas (por exemplo, idioma se aplicável).\nCookies de análise: para entender o uso da Plataforma e melhorá-la (por exemplo, Google Analytics).",
+            "body2": "**3) Consentimento e controle**\nAtualmente não mostramos um banner de cookies. Você pode gerenciar cookies diretamente do seu navegador (bloquear, excluir ou restringir). Tenha em conta que bloquear cookies necessários pode afetar o funcionamento.\nSe você deseja recusar especificamente o Google Analytics, o Google oferece um complemento oficial de desativação para navegadores compatíveis.\n\n**4) Cookies de terceiros**\nAlguns serviços integrados (como Google Analytics) podem definir seus próprios cookies/identificadores para funcionar.",
+            "body3": "**5) Alterações**\nPodemos atualizar esta Política de Cookies para refletir alterações técnicas ou legais, indicando a nova data de atualização."
+        }
+    }
+}

@@ -1,0 +1,291 @@
+{
+    "categories": {
+        "genesis": "🌍 Genesis",
+        "exodus": "🔥 Exodus",
+        "gospels": "✝️ Gospels",
+        "acts": "📜 Acts",
+        "prophets": "📢 Prophets",
+        "kings": "👑 Kings",
+        "general": "📚 General",
+        "old_testament": "📜 Old Testament",
+        "new_testament": "✝️ New Testament",
+        "miracles": "✨ Miracles of Jesus",
+        "geography": "🌍 Biblical Geography",
+        "women": "👩🏻 Women of the Bible"
+    },
+    "common": {
+        "loading": "Loading...",
+        "error": "Error",
+        "back": "Back",
+        "home": "Home",
+        "success": "Success",
+        "save": "Save",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "menu": "Menu",
+        "myGames": "My Games",
+        "leaderboard": {
+            "title": "🏆 Top {{count}} Players",
+            "empty": "No players yet.",
+            "defaultPlayer": "Player"
+        },
+        "logout": "Exit",
+        "classic": "CLASSIC",
+        "multiplayer": "MULTIPLAYER",
+        "rightsReserved": "All rights reserved",
+        "startGame": "START GAME",
+        "onlinePlayers": "ONLINE PLAYERS"
+    },
+    "welcome": {
+        "title": "Welcome to Tribiblia",
+        "subtitle": "Show what you know about the Bible",
+        "hostGame": "Host Game",
+        "joinGame": "REMOTE CONTROL (BUZZER)",
+        "admin": "Admin",
+        "logout": "Log Out",
+        "startGame": "START GAME",
+        "greeting": "Welcome {{name}}!",
+        "welcomeUser": "Welcome"
+    },
+    "auth": {
+        "email": "Email",
+        "password": "Password",
+        "loginButton": "Log In",
+        "registerButton": "Register",
+        "forgotPassword": "Forgot Password?",
+        "username": "Username (Nickname)",
+        "titleLogin": "Log In",
+        "titleRegister": "Create Account",
+        "chooseAvatar": "Choose your Avatar:",
+        "switchToLogin": "Already have an account? Log In",
+        "switchToRegister": "No account? Register",
+        "forgotPasswordTitle": "RECOVER PASSWORD",
+        "forgotPasswordSubtitle": "Enter your email and we'll send you a link to reset your password.",
+        "emailPlaceholder": "Your Email",
+        "sendLinkButton": "SEND LINK",
+        "backToLogin": "Back to Login",
+        "passwordRecoverySent": "If the email exists in our database, you will receive instructions to reset your password.",
+        "resetPasswordTitle": "NEW PASSWORD",
+        "resetPasswordSubtitle": "Enter your new password to restore access to your account.",
+        "newPasswordPlaceholder": "New Password",
+        "confirmPasswordPlaceholder": "Confirm Password",
+        "updateButton": "UPDATE",
+        "cancelBackToLogin": "Cancel / Back to Login",
+        "errors": {
+            "missingEmail": "Please enter your email",
+            "invalidEmail": "Please enter a valid email",
+            "sendError": "Could not send email.",
+            "missingFields": "Please enter both fields",
+            "passwordMismatch": "Passwords do not match",
+            "passwordTooShort": "Password must be at least 6 characters",
+            "updateError": "Could not update password."
+        },
+        "success": {
+            "passwordUpdated": "Your password has been updated."
+        },
+        "joinGame": "JOIN GAME (QR)",
+        "registerSuccessTitle": "Registration Successful",
+        "registerSuccessMessage": "Your account has been created! Please check your email (including spam folder) to confirm your registration before logging in.",
+        "acceptTermsPrefix": "I have read and agree to the ",
+        "privacyPolicyLink": "Privacy Policy",
+        "acceptTermsAnd": " and ",
+        "termsOfUseLink": "Terms of Use",
+        "errorTermsRequired": "You must accept the terms to register."
+    },
+    "join": {
+        "title": "JOIN GAME",
+        "nameLabel": "Your Name:",
+        "namePlaceholder": "Ex: David",
+        "avatarLabel": "Your Avatar:",
+        "sessionLabel": "Session Code/ID:",
+        "sessionPlaceholder": "Scan QR or enter ID",
+        "scanButton": "📷 SCAN QR",
+        "joinButton": "ENTER",
+        "backButton": "Back",
+        "accessRestricted": "Access Restricted",
+        "accessRestrictedMessage": "You must log in to join a game.",
+        "permissionDenied": "Permission Denied",
+        "permissionDeniedMessage": "We need camera access to scan the QR code.",
+        "cameraPermission": "Requesting camera permission...",
+        "closeCamera": "Close Camera",
+        "scanned": "Scanned",
+        "idDetected": "ID Detected: {{id}}",
+        "error": "Error",
+        "enterNameAndSession": "Please enter your name and session ID"
+    },
+    "profile": {
+        "title": "My Profile",
+        "editProfile": "Edit Profile",
+        "changePassword": "Change Password",
+        "rank": "Rank",
+        "xp": "XP",
+        "nextLevel": "Next Level",
+        "stats": {
+            "games": "Games",
+            "completed": "Completed",
+            "wins": "Wins"
+        },
+        "myGames": "🎮 My Games:",
+        "inProgress": "IN PROGRESS",
+        "finished": "FINISHED",
+        "noGames": "No saved games found.",
+        "resume": "▶️ RESUME",
+        "viewResults": "📜 VIEW RESULTS",
+        "sections": {
+            "avatar": "YOUR AVATAR",
+            "data": "YOUR DATA",
+            "language": "LANGUAGE"
+        },
+        "fields": {
+            "playerNameLabel": "PLAYER NAME",
+            "playerNamePlaceholder": "Enter your name...",
+            "passwordLabel": "NEW PASSWORD (OPTIONAL)",
+            "passwordPlaceholder": "Min 6 chars"
+        },
+        "saveChanges": "SAVE CHANGES"
+    },
+    "gamification": {
+        "xp": "EXPERIENCE",
+        "ranks": {
+            "explorer": "Biblical Explorer",
+            "shepherd": "Shepherd of Sheep",
+            "disciple": "Faithful Disciple",
+            "master": "Master of the Law"
+        }
+    },
+    "game": {
+        "waiting": "Waiting for players...",
+        "team": "Team",
+        "score": "Score",
+        "gameOver": "Game Over",
+        "winner": "Winner",
+        "turn": "TURN",
+        "streak": "STREAK",
+        "exit": "EXIT",
+        "done": "DONE",
+        "menuTitle": "Game Menu",
+        "editGame": "Edit Game",
+        "exitGame": "Exit Game",
+        "buzz": "BUZZ!",
+        "buzzMessage": "Player {{id}} pressed the button!",
+        "insertingCoin": "INSERTING COIN...",
+        "timeUp": "TIME'S UP!",
+        "bonus": "COMBO X3!",
+        "points": "PTS",
+        "exitConfirmTitle": "Exit Game?",
+        "exitConfirmMessage": "Are you sure you want to exit? Your progress will be saved automatically.",
+        "feedback": {
+            "correct": "CORRECT!",
+            "incorrect": "INCORRECT!",
+            "correctAnswerIs": "The correct answer is:",
+            "timeUp": "TIME'S UP!"
+        }
+    },
+    "instructions": {
+        "title": "HOW TO PLAY",
+        "whatIsTitle": "WHAT IS IT",
+        "whatIsBody": "is a biblical Trivia app to learn, review and strengthen your knowledge of the Word while playing. Its agile format turns bible study into an entertaining and motivating experience, ideal for youth, families and church groups. Play in teams or solo, earn points and live a fun challenge with purpose while learning and growing together.",
+        "howToPlayTitle": "HOW TO PLAY",
+        "howToPlayBody": "The game is played in turns between two teams. On your turn, you choose a question within a category and have 30 seconds to answer. You can play 1 vs 1 or 4 vs 4.\nEach correct answer earns points, and a streak of 3 correct answers gives you bonus points.\nThe team with the most points wins."
+    },
+    "gameOver": {
+        "title": "GAME OVER",
+        "winner": "{{name}} WINS!",
+        "draw": "DRAW!",
+        "xpMessage": "+50 XP Earned! 🌟",
+        "restart": "RESTART"
+    },
+    "controller": {
+        "title": "REMOTE CONTROL",
+        "points": "pts",
+        "buzz": "BUZZ",
+        "buzzed": "SENT!",
+        "instructionsActive": "Press if you know the answer!",
+        "instructionsIdle": "Wait for the host to read the question.",
+        "exit": "Exit",
+        "welcome": "Hi {{avatar}} {{name}}!",
+        "winner": "Winner: {{name}}",
+        "selectAnswer": "Select answer"
+    },
+    "teamConfig": {
+        "activeGamesTitle": "ACTIVE GAMES 🔥",
+        "createNewGameTitle": "CREATE NEW GAME 🕹️",
+        "resume": "RESUME",
+        "title": "TEAM SETUP",
+        "team1": "TEAM 1",
+        "team1Placeholder": "Team 1 Name",
+        "team2": "TEAM 2",
+        "team2Placeholder": "Team 2 Name",
+        "multiplayer": "MULTIPLAYER",
+        "createSession": "CREATE SESSION",
+        "joinScan": "SCAN TO JOIN:",
+        "sessionCode": "SESSION CODE:",
+        "connectedPlayers": "PLAYERS CONNECTED",
+        "startGame": "START GAME",
+        "editTitle": "EDIT TEAMS",
+        "setupTitle": "GAME SETUP",
+        "classicMode": "CLASSIC (1v1)",
+        "multiplayerMode": "MULTIPLAYER (4v4)",
+        "durationTitle": "GAME DURATION",
+        "durationFlash": "FLASH\n(5 min)",
+        "durationShort": "SHORT\n(15 min)",
+        "durationFull": "FULL\n(30 min)",
+        "addPlayer": "+ Add Player",
+        "remoteConnection": "REMOTE CONNECTION (BUZZER QR)",
+        "connectedBuzzers": "Connected (Buzzer)",
+        "saveAndContinue": "SAVE AND CONTINUE",
+        "modalAddPlayerTitle": "Add Player to Team {{teamId}}",
+        "playerPlaceholder": "Player Name",
+        "modalCancel": "Cancel",
+        "modalAdd": "Add",
+        "alerts": {
+            "duplicateTitle": "Duplicate Name",
+            "duplicateMessage": "Player \"{{name}}\" is already on the list.",
+            "missingPlayersTitle": "Missing Players",
+            "missingPlayersMessage": "In Multiplayer mode, you must add at least one player per team.",
+            "saveErrorTitle": "Error",
+            "saveErrorMessage": "Could not save changes.",
+            "autoCreateErrorTitle": "Error",
+            "autoCreateErrorMessage": "Could not create session to save game.",
+            "startErrorTitle": "Error",
+            "startErrorMessage": "Error starting game on server.",
+            "permissionsWarningTitle": "Warning",
+            "permissionsWarningMessage": "Could not save game to history (Permissions)."
+        }
+    },
+    "languages": {
+        "es": "Spanish",
+        "en": "English",
+        "pt": "Portuguese"
+    },
+    "footer": {
+        "about": "About Us",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Use",
+        "cookies": "Cookies"
+    },
+    "pages": {
+        "about": {
+            "title": "ABOUT US",
+            "body": "At TRIBIBLIA®, we believe that learning the Bible doesn't have to feel complicated or distant. That's why we created an agile and entertaining experience that helps you review, memorize, and strengthen your knowledge of the Word while you play. Here, every question is an opportunity to discover, remember, and connect with Scripture in a dynamic and motivating way.\n\nTRIBIBLIA® works with a simple format: you choose a category, answer within a time limit, and score points. You can play solo or in teams, making it ideal for youth, families, friends, and church groups. Healthy competition, streaks, and bonus points turn every game into an exciting challenge with a purpose: to learn more and share that learning with others.\n\nOur mission is for Bible study to become part of everyday life, without pressure and with enthusiasm. We want TRIBIBLIA® to be a useful tool for meetings, youth nights, family gatherings, or any moment where you want to test what you know and keep growing. We continue working to add new categories, more questions, game improvements, and an increasingly complete experience.\n\nIf you want to send us suggestions, report a detail, or simply get in touch with us, write to us at info@tribiblia.com. We'd love to read from you and continue building this community with you.\n\nAnd since TRIBIBLIA® is a free application, your support can make a huge difference. If this project blesses you and adds value to you, we invite you to collaborate with us so we can continue developing it, adding content, and taking the app to more people. You can do this simply via the Buy Me a Coffee button: every contribution, no matter how small, helps us keep growing and improving TRIBIBLIA® for the entire community. 🙌📖"
+        },
+        "privacy": {
+            "title": "PRIVACY POLICY",
+            "body1": "Last updated: January 2026\n\n**1) Data Controller**\nDMediaGroup SRL (“TRIBIBLIA®”, “we”), based in Santo Domingo, Dominican Republic, is the data controller for personal data collected through tribiblia.com (the “Platform”).\nPrivacy Contact: info@tribiblia.com\n\n**2) What Data We Collect**\n**A. Data you provide**\nEmail (registration and account recovery).\nUsername.\nAvatar (in text/emoji format selected by the user).\n\n**B. Data collected automatically**\nIP address and connection data (security and operation).\nGame statistics (e.g., scores, progress, match history).\nTechnical device/browser data (diagnostics, stability, abuse prevention).\nCookies/identifiers (see Cookies Policy).\n\n**3) Why We Use Your Data**\nWe use your data to:\nCreate and manage your account, allow access, and save your progress.\nOperate the game and its features (categories, scores, history).\nMaintain security, prevent fraud/abuse, and debug errors.\nMeasure Platform usage and improve the experience (analytics).",
+            "body2": "**4) Legal Basis (where GDPR/Europe applies)**\nWhen applicable (e.g., if you access from the EEA/UK), we process data under:\nPerformance of a contract/service (account and game functionality).\nLegitimate interest (security, abuse prevention, technical improvements).\nConsent (especially for non-essential cookies where required by law).\nImportant note: we currently do not display a cookie banner. You can manage cookies from your browser. If you are in jurisdictions requiring prior consent for analytics, we recommend disabling cookies/tracking from your browser or using opt-out tools (see Cookies).\n\n**5) Third Parties and Providers**\nWe share only what is necessary with providers to operate the Platform:\nSupabase: Database and authentication (DB/Auth). Supabase has a Data Processing Addendum (DPA) and provides for international transfer mechanisms like SCCs.\nHostinger: hosting/infrastructure where the PWA is hosted. Hostinger publishes data center locations and a DPA.\nGoogle Analytics (GA): web usage measurement via cookies/identifiers and browser data. Google offers privacy controls and opt-out options (see Cookies).\nBuy Me a Coffee: processes voluntary contributions. We do not store card data; payment is handled by the third party according to their policies.\n\n**6) International Transfers**\nBy using global providers (e.g., Supabase, Google, or Hostinger), data may be processed outside your country. Where applicable, such providers provide for contractual mechanisms for international transfers (e.g., SCCs).\n\n**7) Data Retention**\nWe retain your data:\nWhile your account is active, and/or until you request deletion.\nSome technical logs (security/errors) may be retained for a limited additional period for security and compliance reasons.",
+            "body3": "**8) Your Rights**\nYou may request access, rectification, deletion, or other applicable actions according to your jurisdiction by writing to info@tribiblia.com.\nIf you are in the EEA/UK, you may also lodge a complaint with your local data protection authority.\n\n**9) Minors**\nTRIBIBLIA® is directed to the general public. We recommend adult supervision when minors use the Platform. We do not knowingly seek to collect data from children in a manner contrary to applicable regulations (e.g., COPPA in the US).\n\n**10) Security**\nWe implement reasonable measures to protect information (access controls, security best practices, and use of providers with technical/organizational measures). Supabase describes its security and contractual approach via its documentation/DPA.\n\n**11) Changes to this Policy**\nWe may update this Policy. We will post the new “Last updated” date and, if the change is material, make reasonable efforts to notify you on the Platform."
+        },
+        "terms": {
+            "title": "TERMS OF USE",
+            "body1": "Last updated: January 2026\n\n**1) Acceptance**\nBy accessing or using TRIBIBLIA® (the “Platform”), you agree to these Terms. If you do not agree, do not use the Platform.\n\n**2) What is TRIBIBLIA®**\nTRIBIBLIA® is a web app (PWA) accessible from mobile and desktop browsers. It is currently not distributed as a native app on the App Store/Play Store.\n\n**3) Permitted Use**\nYou may use TRIBIBLIA® for personal, educational, and recreational purposes. You agree not to:\nViolate security, attempt unauthorized access, or interfere with operation.\nAutomate use abusively (bots, scraping questions, attacks, spam).\nUse the Platform for illegal purposes or those that infringe on third-party rights.\n\n**4) Accounts**\nYou are responsible for the confidentiality of your account and the use made of it. We may suspend or limit accounts if we detect abuse, fraud, or violation of these Terms.",
+            "body2": "**5) Intellectual Property**\nThe Platform (brand, design, software, questions/structure, and proprietary content) belongs to TRIBIBLIA® or its licensors. You are granted a limited and revocable license to use it in accordance with these Terms.\n\n**6) Free Service and Contributions**\nTRIBIBLIA® is a free platform. If you wish to support the project, you can contribute via Buy Me a Coffee. Contributions are voluntary and processing is handled by a third party; TRIBIBLIA® does not manage card data nor guarantee benefits or consideration for the contribution.\n\n**7) Availability**\nWe may modify, suspend, or discontinue the Platform content or services, in whole or in part, as well as add or remove features, without obligation to maintain uninterrupted availability.\n\n**8) Disclaimer of Warranties**\nThe Platform is offered “as is” and “as available,” without warranties of total absence of errors or continuous availability.",
+            "body3": "**9) Limitation of Liability**\nTo the maximum extent permitted by law, TRIBIBLIA® shall not be liable for indirect, incidental, or consequential damages arising from the use or inability to use the Platform.\n\n**10) Minors**\nThe Platform is directed to the general public. For minors, adult supervision is recommended.\n\n**11) Applicable Law and Jurisdiction**\nThese Terms are governed by the laws of the Dominican Republic. Any dispute shall be submitted to the competent courts of Santo Domingo, Dominican Republic, except for mandatory rules applicable by the user's residence.\n\n**12) Contact**\nSupport and inquiries: info@tribiblia.com"
+        },
+        "cookies": {
+            "title": "COOKIES POLICY",
+            "body1": "Last updated: January 2026\n\n**1) What are cookies**\nCookies are small files stored on your device to enable functions, remember preferences, and measure site usage.\n\n**2) What cookies we use**\nTRIBIBLIA® may use:\nStrictly necessary cookies: enable basic functions (security, session, stability).\nPreference cookies: save basic choices (e.g., language if applicable).\nAnalytics cookies: to understand Platform usage and improve it (e.g., Google Analytics).",
+            "body2": "**3) Consent and control**\nWe currently do not display a cookies banner. You can manage cookies directly from your browser (block, delete, or restrict). Note that blocking necessary cookies may affect functionality.\nIf you wish to specifically opt-out of Google Analytics, Google offers an official opt-out add-on for compatible browsers.\n\n**4) Third-party cookies**\nSome integrated services (like Google Analytics) may set their own cookies/identifiers to function.",
+            "body3": "**5) Changes**\nWe may update this Cookies Policy to reflect technical or legal changes, indicating the new update date."
+        }
+    }
+}
