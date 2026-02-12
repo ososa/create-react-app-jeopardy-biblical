@@ -40,3 +40,10 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Build artifacts - don't track compiled/generated files
+dist.zip
+*.zip
+web-build/
+build/
+biblical-jeopardy-web-build.zip
