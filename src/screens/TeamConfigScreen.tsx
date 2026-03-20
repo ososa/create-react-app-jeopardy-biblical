@@ -1006,6 +1006,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         letterSpacing: 1,
         textAlign: 'center',
+        lineHeight: 18,
     },
     modeTextActive: {
         color: '#001B3A',
