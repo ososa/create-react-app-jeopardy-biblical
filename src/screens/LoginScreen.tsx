@@ -222,6 +222,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
                         {isSignUp && (
                             <TextInput
+                                testID="login-username-input"
                                 style={styles.input}
                                 placeholder={t('auth.username')}
                                 placeholderTextColor="#999"
@@ -232,6 +233,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                         )}
 
                         <TextInput
+                            testID="login-email-input"
                             style={styles.input}
                             placeholder={t('auth.email')}
                             placeholderTextColor="#999"
@@ -243,6 +245,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
                         <View style={{ width: '100%', marginBottom: 15, position: 'relative' }}>
                             <TextInput
+                                testID="login-password-input"
                                 style={[styles.input, { marginBottom: 0, paddingRight: 50 }]}
                                 placeholder={t('auth.password')}
                                 placeholderTextColor="#999"
@@ -251,6 +254,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                                 secureTextEntry={!showPassword}
                             />
                             <TouchableOpacity
+                                testID="login-show-password-button"
                                 onPress={() => setShowPassword(!showPassword)}
                                 style={{
                                     position: 'absolute',
@@ -271,6 +275,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
                         {!isSignUp && (
                             <TouchableOpacity
+                                testID="login-forgot-password-link"
                                 style={styles.forgotPassword}
                                 onPress={() => navigation.navigate('ForgotPassword')}
                             >
@@ -292,6 +297,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                                     {AVATARS.map((avatar) => (
                                         <TouchableOpacity
                                             key={avatar}
+                                            testID={`register-avatar-${avatar}`}
                                             onPress={() => setSelectedAvatar(avatar)}
                                             style={[
                                                 styles.avatarItem,
@@ -307,7 +313,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
                         {isSignUp && (
                             <View style={styles.checkboxContainer}>
-                                <TouchableOpacity onPress={() => setAcceptedTerms(!acceptedTerms)}>
+                                <TouchableOpacity testID="register-terms-checkbox" onPress={() => setAcceptedTerms(!acceptedTerms)}>
                                     <MaterialIcons
                                         name={acceptedTerms ? "check-box" : "check-box-outline-blank"}
                                         size={24}
@@ -345,6 +351,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
                         <TouchableOpacity
+                            testID="auth-submit-button"
                             style={styles.authButton}
                             onPress={handleAuth}
                             disabled={loading}
@@ -363,7 +370,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                             </LinearGradient>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>
+                        <TouchableOpacity testID="auth-switch-mode-button" onPress={() => setIsSignUp(!isSignUp)}>
                             <Text style={styles.switchText}>
                                 {isSignUp ? t('auth.switchToLogin') : t('auth.switchToRegister')}
                             </Text>

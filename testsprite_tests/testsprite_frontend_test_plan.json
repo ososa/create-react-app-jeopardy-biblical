@@ -1,0 +1,710 @@
+[
+  {
+    "id": "TC001",
+    "title": "User Registration with Valid Data",
+    "description": "Verify that a user can successfully register with valid email, username, password, CAPTCHA, and accepted terms.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the registration tab on the login screen"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid username"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid password meeting password rules"
+      },
+      {
+        "type": "action",
+        "description": "Accept terms and privacy policy checkbox"
+      },
+      {
+        "type": "action",
+        "description": "Complete CAPTCHA verification"
+      },
+      {
+        "type": "action",
+        "description": "Click register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that registration is successful and a confirmation email message is shown"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "User Login with Correct Credentials",
+    "description": "Ensure user can login successfully with a valid registered email and password.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to login tab on login screen"
+      },
+      {
+        "type": "action",
+        "description": "Fill in registered email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in correct password"
+      },
+      {
+        "type": "action",
+        "description": "Click login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is authenticated and redirected to the Instructions screen"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Login Failure with Incorrect Password",
+    "description": "Verify the login fails when user inputs an incorrect password.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to login tab on login screen"
+      },
+      {
+        "type": "action",
+        "description": "Input registered email address"
+      },
+      {
+        "type": "action",
+        "description": "Input incorrect password"
+      },
+      {
+        "type": "action",
+        "description": "Click login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify login fails and appropriate error message is displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Password Recovery Request",
+    "description": "Verify that user can request password recovery with valid registered email.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to forgot password screen from login page"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid registered email"
+      },
+      {
+        "type": "action",
+        "description": "Submit password recovery request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that recovery email request confirmation is shown"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Password Reset with Valid Token",
+    "description": "Ensure that user can reset password successfully when a valid token is provided.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to reset password screen with valid token"
+      },
+      {
+        "type": "action",
+        "description": "Enter and confirm new valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit new password"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify password reset is successful and user can login with new password"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Team Configuration in Classic 1v1 Mode",
+    "description": "Verify successful team setup for Classic 1v1 game with valid team and player names.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login and navigate to Team Configuration screen"
+      },
+      {
+        "type": "action",
+        "description": "Enter unique names for Team 1 and Team 2"
+      },
+      {
+        "type": "action",
+        "description": "Add one player to each team with unique player names"
+      },
+      {
+        "type": "action",
+        "description": "Select Classic 1v1 game mode"
+      },
+      {
+        "type": "action",
+        "description": "Select game duration option"
+      },
+      {
+        "type": "action",
+        "description": "Click start game button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify game session is created and game screen opens with correct setup"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Team Configuration Validation for Duplicate Player Names",
+    "description": "Ensure team configuration screen prevents duplicate player names within and across teams.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to team configuration screen"
+      },
+      {
+        "type": "action",
+        "description": "Enter same player name in Team 1 and Team 2 rosters"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an error or warning is shown and start game button is disabled"
+      },
+      {
+        "type": "action",
+        "description": "Enter duplicate player names within the same team roster"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an error or warning is shown preventing duplicates"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Team Configuration Multiplayer 4v4 Minimum Player Enforcement",
+    "description": "Verify that multiplayer mode requires at least 4 players per team and does not allow starting game without meeting this requirement.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Select Multiplayer 4v4 mode on Team Configuration screen"
+      },
+      {
+        "type": "action",
+        "description": "Add fewer than 4 players to one or both teams"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify start game button is disabled or shows error"
+      },
+      {
+        "type": "action",
+        "description": "Add required minimum players to both teams"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify start game button is enabled and game can start"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Gameplay Question Category Selection and Timer Countdown",
+    "description": "Verify that player can select a category, question is displayed with a 30-second countdown timer, and countdown behaves correctly.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Start a game and reach category selection screen"
+      },
+      {
+        "type": "action",
+        "description": "Select a category from the category grid"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify question and biblical reference are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the 30-second countdown timer starts and counts down every second"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Gameplay Answer Selection with Correct Feedback and Scoring",
+    "description": "Verify that selecting an answer shows correct/incorrect feedback, updates score, and displays streak bonus and confetti animations on correct answers.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "On game question screen, select a correct answer choice"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify correct feedback is shown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify confetti animation is shown for correct answer"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify scores and streak bonuses are updated correctly"
+      },
+      {
+        "type": "action",
+        "description": "Select an incorrect answer on another question"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify incorrect feedback is shown and no confetti"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify score does not increase"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Gameplay Exit during Game with Auto-save",
+    "description": "Verify that exiting the game mid-session autosaves the current state allowing future resume.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Start a game and answer at least one question"
+      },
+      {
+        "type": "action",
+        "description": "Exit the game using the game menu exit option"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify current game session is autosaved"
+      },
+      {
+        "type": "action",
+        "description": "Login again and navigate to My Games screen"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that the in-progress game is available to resume"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Multiplayer Remote Buzzer Join with Valid Session",
+    "description": "Verify remote players can join a multiplayer session using QR code or session ID, set player name and avatar, and join successfully.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open Join screen"
+      },
+      {
+        "type": "action",
+        "description": "Scan valid QR code or manually enter valid session ID"
+      },
+      {
+        "type": "action",
+        "description": "Enter player name and select an avatar"
+      },
+      {
+        "type": "action",
+        "description": "Click join button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify player joins session successfully and Controller screen is displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Multiplayer Remote Buzzer Real-time Synchronization",
+    "description": "Ensure that buzzer presses, answer selections, and score updates synchronize in real-time across connected remote devices with minimal latency.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Connect multiple remote devices to same multiplayer session"
+      },
+      {
+        "type": "action",
+        "description": "Press buzzer button on one remote device when question appears"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all connected remote devices display buzzer press in real-time"
+      },
+      {
+        "type": "action",
+        "description": "Select an answer on one controller device"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify answer feedback and score updates update in real-time on all devices"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "User Profile Update: Change Language Preference",
+    "description": "Verify that user can change language preference and UI updates accordingly across sessions.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login and navigate to Profile screen"
+      },
+      {
+        "type": "action",
+        "description": "Select a different language from options (Spanish, English, Portuguese)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify UI content changes to selected language instantly"
+      },
+      {
+        "type": "action",
+        "description": "Logout and login again"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify selected language preference persists"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "User Profile XP and Rank Display",
+    "description": "Verify that XP, current rank, and progress to next rank are accurately displayed on the profile screen.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login and navigate to Profile screen"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify current XP value is displayed correctly"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify current rank and progress bar to next rank are visible and accurate"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Game History Navigation and Resume Past Game",
+    "description": "Verify user can navigate to game history, view completed and in-progress games, and resume in-progress games successfully.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login and navigate to My Games screen"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify completed games are listed with results"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify in-progress games appear with option to resume"
+      },
+      {
+        "type": "action",
+        "description": "Select an in-progress game and click resume"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify game resumes from saved state"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Admin Panel Access Control",
+    "description": "Verify that only authenticated admin users can access the Admin panel.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Attempt to navigate to /admin route as non-authenticated user"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access is denied and redirect to login"
+      },
+      {
+        "type": "action",
+        "description": "Login as non-admin authenticated user and navigate to /admin"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access is denied"
+      },
+      {
+        "type": "action",
+        "description": "Login as admin and navigate to /admin"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify Admin panel loads successfully"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Admin Panel CRUD Operations on Questions",
+    "description": "Verify that admin can create, read, update, and delete questions with multilingual content.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as admin and open Admin panel"
+      },
+      {
+        "type": "action",
+        "description": "Add a new question with text in all supported languages"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify new question appears in questions list"
+      },
+      {
+        "type": "action",
+        "description": "Edit the newly added question changing any language text"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify edits are saved and displayed correctly"
+      },
+      {
+        "type": "action",
+        "description": "Delete the question"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify question is removed from the list"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Admin Panel Category Management",
+    "description": "Verify admin can create and edit categories with multilingual support.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as admin and navigate to Admin panel category management"
+      },
+      {
+        "type": "action",
+        "description": "Create a new category providing names in Spanish, English, and Portuguese"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify new category is listed correctly with multilingual data"
+      },
+      {
+        "type": "action",
+        "description": "Edit an existing category and update name fields"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify changes are saved and visible"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Admin Panel Import and Export Questions via Excel",
+    "description": "Verify that admin can import and export question data with Excel files correctly.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as admin and open Admin panel"
+      },
+      {
+        "type": "action",
+        "description": "Export current questions to Excel"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify Excel file is downloaded containing correct question data"
+      },
+      {
+        "type": "action",
+        "description": "Modify Excel file adding new questions"
+      },
+      {
+        "type": "action",
+        "description": "Import modified Excel file back into Admin panel"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify new questions are added to the system"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "Internationalization UI Text and Content Display",
+    "description": "Verify that UI elements, questions, instructions, and legal pages display correctly in all supported languages according to user preference or auto-detection.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Change app language preference to Spanish"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify UI elements translate correctly and game questions appear in Spanish"
+      },
+      {
+        "type": "action",
+        "description": "Change app language preference to Portuguese"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify UI elements translate correctly and questions appear in Portuguese"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to Privacy Policy and Terms pages in each language"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify legal pages show content matching selected language"
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "PWA Service Worker Registration and Offline Behavior",
+    "description": "Verify the PWA service worker is registered and offline capabilities function for cached content.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Load the app and check for service worker registration"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify service worker is registered successfully"
+      },
+      {
+        "type": "action",
+        "description": "Turn off internet connection"
+      },
+      {
+        "type": "action",
+        "description": "Navigate in the app to cached screens"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cached pages load without errors while offline"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Legal Pages Accessibility and Content Validation",
+    "description": "Verify that Privacy Policy, Terms of Use, and Cookies policy pages are accessible from the app and contain updated content per GDPR and COPPA.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to About Us screen"
+      },
+      {
+        "type": "action",
+        "description": "Access Privacy Policy, Terms of Use, and Cookies policy links from footer or navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify each legal page loads correctly and displays current content compliant with GDPR and COPPA"
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Game Over Screen Display and Winner Announcement",
+    "description": "Verify that when a game finishes, the Game Over screen displays final results and announces the winner correctly.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Complete a game session to its end"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify final scores are displayed accurately for all teams"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the winner team or player is clearly indicated"
+      }
+    ]
+  }
+]

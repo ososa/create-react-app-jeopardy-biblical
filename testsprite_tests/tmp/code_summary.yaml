@@ -1,0 +1,271 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - React Native
+  - Expo
+  - React Navigation
+  - Supabase
+  - i18next
+routes:
+  - path: /
+    file: src/screens/LoginScreen.tsx
+    auth_required: false
+    description: Login and registration screen
+  - path: /instructions
+    file: src/screens/InstructionsScreen.tsx
+    auth_required: true
+    description: Home screen with game instructions
+  - path: /setup
+    file: src/screens/TeamConfigScreen.tsx
+    auth_required: true
+    description: Team configuration and game setup
+  - path: /game
+    file: src/screens/GameScreen.tsx
+    auth_required: true
+    description: Main game screen with questions
+  - path: /game-over
+    file: src/screens/GameOverScreen.tsx
+    auth_required: true
+    description: Game results and winner display
+  - path: /admin
+    file: src/screens/admin/index.tsx
+    auth_required: true
+    description: Admin panel for question management
+  - path: /join
+    file: src/screens/JoinScreen.tsx
+    auth_required: false
+    description: Join game session via QR code
+  - path: /controller
+    file: src/screens/ControllerScreen.tsx
+    auth_required: false
+    description: Remote buzzer controller
+  - path: /profile
+    file: src/screens/ProfileScreen.tsx
+    auth_required: true
+    description: User profile with XP and settings
+  - path: /my-games
+    file: src/screens/MyGamesScreen.tsx
+    auth_required: true
+    description: Game history and saved games
+  - path: /forgot-password
+    file: src/screens/ForgotPasswordScreen.tsx
+    auth_required: false
+    description: Password recovery request
+  - path: /reset-password
+    file: src/screens/ResetPasswordScreen.tsx
+    auth_required: false
+    description: Reset password with token
+  - path: /about
+    file: src/screens/AboutUsScreen.tsx
+    auth_required: false
+    description: About Tribiblia information
+  - path: /privacy
+    file: src/screens/PrivacyPolicyScreen.tsx
+    auth_required: false
+    description: Privacy policy
+  - path: /terms
+    file: src/screens/TermsOfUseScreen.tsx
+    auth_required: false
+    description: Terms of use
+  - path: /cookies
+    file: src/screens/CookiesPolicyScreen.tsx
+    auth_required: false
+    description: Cookies policy
+features:
+  - name: User Authentication
+    description: Login, registration, and password recovery
+    files:
+      - src/screens/LoginScreen.tsx
+      - src/screens/ForgotPasswordScreen.tsx
+      - src/screens/ResetPasswordScreen.tsx
+      - src/context/AuthContext.tsx
+    entry_route: /
+    user_interactions:
+      - Switch between login and register tabs
+      - Fill email input field
+      - Fill password input field
+      - Fill username input field
+      - Select avatar emoji
+      - Accept terms and privacy policy checkbox
+      - Complete CAPTCHA verification
+      - Click login button
+      - Click register button
+      - Click forgot password link
+      - See email confirmation message
+    api_calls:
+      - method: POST
+        endpoint: /auth/v1/signup
+      - method: POST
+        endpoint: /auth/v1/token?grant_type=password
+      - method: POST
+        endpoint: /auth/v1/recover
+    auth_required: false
+  - name: Team Configuration
+    description: Create and configure teams for classic or multiplayer mode
+    files:
+      - src/screens/TeamConfigScreen.tsx
+      - src/context/GameContext.tsx
+    entry_route: /setup
+    user_interactions:
+      - Enter team 1 name
+      - Enter team 2 name
+      - Select game mode (Classic 1v1 or Multiplayer 4v4)
+      - Select game duration (Flash, Short, Complete)
+      - Add players to team rosters
+      - Remove players from rosters
+      - Create multiplayer session
+      - View QR code for remote players
+      - Resume in-progress games
+      - Click start game button
+    api_calls:
+      - method: POST
+        endpoint: /rest/v1/rpc/create_game_session
+      - method: GET
+        endpoint: /rest/v1/rpc/fetch_random_categories
+    auth_required: true
+  - name: Gameplay
+    description: Turn-based biblical trivia game with scoring
+    files:
+      - src/screens/GameScreen.tsx
+      - src/context/GameContext.tsx
+      - src/context/SessionContext.tsx
+    entry_route: /game
+    user_interactions:
+      - View current team turn indicator
+      - Select category from grid
+      - Read question and biblical reference
+      - Watch 30-second countdown timer
+      - Select answer from 4 options
+      - See correct/incorrect feedback
+      - View streak bonus notification
+      - See confetti on correct answers
+      - View updated scores
+      - Open game menu
+      - Exit game with auto-save
+    api_calls:
+      - method: GET
+        endpoint: /rest/v1/questions
+      - method: POST
+        endpoint: /rest/v1/game_sessions
+      - method: PATCH
+        endpoint: /rest/v1/game_sessions
+    auth_required: true
+  - name: Multiplayer Remote Buzzer
+    description: Join game sessions and control via remote device
+    files:
+      - src/screens/JoinScreen.tsx
+      - src/screens/ControllerScreen.tsx
+      - src/context/SessionContext.tsx
+      - src/context/GlobalPresenceContext.tsx
+    entry_route: /join
+    user_interactions:
+      - Scan QR code with camera
+      - Enter session ID manually
+      - Enter player name
+      - Select player avatar
+      - Click join button
+      - Press buzzer button when question appears
+      - Select answer from options
+      - See real-time score updates
+      - View other connected players
+    api_calls:
+      - method: GET
+        endpoint: /realtime/v1/websocket (Supabase Realtime)
+      - method: POST
+        endpoint: /rest/v1/rpc/join_session
+    auth_required: false
+  - name: User Profile
+    description: Manage profile, view XP, rank, and game history
+    files:
+      - src/screens/ProfileScreen.tsx
+      - src/screens/MyGamesScreen.tsx
+      - src/context/AuthContext.tsx
+    entry_route: /profile
+    user_interactions:
+      - View current XP and rank
+      - View progress to next rank
+      - Change avatar
+      - Edit username
+      - Change password
+      - Select language (ES/EN/PT)
+      - View game statistics
+      - Navigate to game history
+      - View completed games
+      - Resume in-progress games
+      - Click logout button
+    api_calls:
+      - method: PATCH
+        endpoint: /auth/v1/user
+      - method: PATCH
+        endpoint: /rest/v1/profiles
+      - method: GET
+        endpoint: /rest/v1/game_sessions
+    auth_required: true
+  - name: Admin Panel
+    description: Manage questions, categories, and users (admin only)
+    files:
+      - src/screens/admin/index.tsx
+      - src/context/AdminContext.tsx
+    entry_route: /admin
+    user_interactions:
+      - View all questions in table
+      - Filter questions by category
+      - Add new question
+      - Edit existing question
+      - Delete question
+      - Import questions from Excel
+      - Export questions to Excel
+      - Manage multilingual content (ES/EN/PT)
+      - Create/edit categories
+      - Manage user admin roles
+    api_calls:
+      - method: GET
+        endpoint: /rest/v1/questions
+      - method: POST
+        endpoint: /rest/v1/questions
+      - method: PATCH
+        endpoint: /rest/v1/questions
+      - method: DELETE
+        endpoint: /rest/v1/questions
+      - method: GET
+        endpoint: /rest/v1/categories
+      - method: POST
+        endpoint: /rest/v1/categories
+      - method: GET
+        endpoint: /rest/v1/profiles
+      - method: PATCH
+        endpoint: /rest/v1/profiles
+    auth_required: true
+  - name: Game Instructions
+    description: View how to play and game rules
+    files:
+      - src/screens/InstructionsScreen.tsx
+      - src/components/InstructionFlipCard.tsx
+    entry_route: /instructions
+    user_interactions:
+      - Click flip card to see what is Tribiblia
+      - Read game rules
+      - Click start game button
+      - Navigate to join game
+      - Navigate to profile
+      - Navigate to admin panel
+      - Access legal pages from footer
+    api_calls: []
+    auth_required: true
+known_limitations:
+  - issue: Service worker is currently unregistered
+    location: App.tsx line 291
+    impact: PWA offline capabilities disabled, may cause cache issues
+  - issue: Guest mode data not persisted
+    location: src/context/AuthContext.tsx
+    impact: Guest user progress lost on page refresh
+  - issue: No cookie consent banner
+    location: Global
+    impact: May not be fully GDPR compliant for EU users
+  - issue: Email confirmation required but no resend option visible
+    location: src/screens/LoginScreen.tsx
+    impact: Users may not receive confirmation email
+  - issue: Admin panel lazy loaded but no error boundary
+    location: App.tsx line 161
+    impact: Admin panel failures may crash app

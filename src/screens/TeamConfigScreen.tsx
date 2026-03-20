@@ -354,15 +354,15 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                 .select();
 
             if (error) {
-                console.error("Error starting game:", error);
-                Alert.alert(t('teamConfig.alerts.startErrorTitle'), t('teamConfig.alerts.startErrorMessage'));
-                return;
+                console.error("Error starting game (sync):", error);
+                // Alert.alert(t('teamConfig.alerts.startErrorTitle'), t('teamConfig.alerts.startErrorMessage'));
+                // Don't block gameplay if server sync fails. Just proceed locally.
             }
 
             if (!data || data.length === 0) {
                 console.error("Update failed: No rows modified. RLS blocking?");
                 // Proceed anyway to verify game flow, but warn
-                Alert.alert(t('teamConfig.alerts.permissionsWarningTitle'), t('teamConfig.alerts.permissionsWarningMessage'));
+                // Alert.alert(t('teamConfig.alerts.permissionsWarningTitle'), t('teamConfig.alerts.permissionsWarningMessage'));
             }
         } else {
             console.warn("Playing in offline mode (state not saved).");
@@ -466,16 +466,26 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                         {/* Game Mode Selector */}
                         <View style={styles.modeSelector}>
                             <TouchableOpacity
+                                testID="team-config-mode-classic"
                                 style={[styles.modeButton, gameMode === 'CLASSIC' && styles.modeButtonActive]}
                                 onPress={() => setGameMode('CLASSIC')}
                             >
-                                <Text style={[styles.modeText, gameMode === 'CLASSIC' && styles.modeTextActive]}>{t('teamConfig.classicMode')}</Text>
+                                <Text style={[styles.modeText, gameMode === 'CLASSIC' && styles.modeTextActive]}>
+                                    <Text style={{ fontFamily: 'Anton', fontSize: 18, letterSpacing: 1 }}>{t('teamConfig.classicMode').split('\n')[0]}</Text>
+                                    {'\n'}
+                                    <Text style={{ fontFamily: 'Mulish-Regular', fontSize: 11 }}>{t('teamConfig.classicMode').split('\n')[1]}</Text>
+                                </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                testID="team-config-mode-multiplayer"
                                 style={[styles.modeButton, gameMode === 'MULTIPLAYER' && styles.modeButtonActive]}
                                 onPress={() => setGameMode('MULTIPLAYER')}
                             >
-                                <Text style={[styles.modeText, gameMode === 'MULTIPLAYER' && styles.modeTextActive]}>{t('teamConfig.multiplayerMode')}</Text>
+                                <Text style={[styles.modeText, gameMode === 'MULTIPLAYER' && styles.modeTextActive]}>
+                                    <Text style={{ fontFamily: 'Anton', fontSize: 18, letterSpacing: 1 }}>{t('teamConfig.multiplayerMode').split('\n')[0]}</Text>
+                                    {'\n'}
+                                    <Text style={{ fontFamily: 'Mulish-Regular', fontSize: 11 }}>{t('teamConfig.multiplayerMode').split('\n')[1]}</Text>
+                                </Text>
                             </TouchableOpacity>
                         </View>
 
@@ -485,6 +495,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                         <Text style={styles.sectionTitleSmall}>{t('teamConfig.durationTitle')}</Text>
                         <View style={styles.modeSelector}>
                             <TouchableOpacity
+                                testID="team-config-duration-flash"
                                 style={[styles.durationButton, gameDuration === 'FLASH' && styles.durationButtonActive]}
                                 onPress={() => setGameDuration('FLASH')}
                             >
@@ -495,6 +506,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                testID="team-config-duration-short"
                                 style={[styles.durationButton, gameDuration === 'SHORT' && styles.durationButtonActive]}
                                 onPress={() => setGameDuration('SHORT')}
                             >
@@ -505,6 +517,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                testID="team-config-duration-full"
                                 style={[styles.durationButton, gameDuration === 'FULL' && styles.durationButtonActive]}
                                 onPress={() => setGameDuration('FULL')}
                             >
@@ -519,9 +532,10 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                         <View style={styles.teamsSection}>
                             {/* Team 1 */}
                             <View style={styles.inputGroup}>
-                                <Text style={[styles.label, { color: 'rgb(0, 255, 255)' }]}>{t('teamConfig.team1')}</Text>
+                                <Text style={[styles.label, { color: 'rgb(0, 255, 255)', textShadowColor: 'rgba(0, 255, 255, 0.5)' }]}>{t('teamConfig.team1')}</Text>
                                 <TextInput
-                                    style={[styles.input, { borderColor: 'rgb(0, 255, 255)' }]}
+                                    testID="team-config-team1-input"
+                                    style={[styles.input, { borderColor: 'rgb(0, 255, 255)', shadowColor: 'rgb(0, 255, 255)' }]}
                                     value={team1Name}
                                     onChangeText={setTeam1Name}
                                     placeholder={t('teamConfig.team1Placeholder')}
@@ -539,6 +553,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                             </TouchableOpacity>
                                         ))}
                                         <TouchableOpacity
+                                            testID="team-config-add-player-btn-1"
                                             style={styles.addPlayerBtn}
                                             onPress={() => setActiveTeamForAdd(1)}
                                         >
@@ -560,9 +575,10 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
 
                             {/* Team 2 */}
                             <View style={styles.inputGroup}>
-                                <Text style={[styles.label, { color: 'rgb(255, 0, 255)' }]}>{t('teamConfig.team2')}</Text>
+                                <Text style={[styles.label, { color: 'rgb(255, 0, 255)', textShadowColor: 'rgba(255, 0, 255, 0.5)' }]}>{t('teamConfig.team2')}</Text>
                                 <TextInput
-                                    style={[styles.input, { borderColor: 'rgb(255, 0, 255)' }]}
+                                    testID="team-config-team2-input"
+                                    style={[styles.input, { borderColor: 'rgb(255, 0, 255)', shadowColor: 'rgb(255, 0, 255)' }]}
                                     value={team2Name}
                                     onChangeText={setTeam2Name}
                                     placeholder={t('teamConfig.team2Placeholder')}
@@ -580,6 +596,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                             </TouchableOpacity>
                                         ))}
                                         <TouchableOpacity
+                                            testID="team-config-add-player-btn-2"
                                             style={styles.addPlayerBtn}
                                             onPress={() => setActiveTeamForAdd(2)}
                                         >
@@ -592,6 +609,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
 
                         {/* Start Game Button (Code Component) */}
                         <TouchableOpacity
+                            testID="team-config-start-button"
                             style={styles.startBtnContainer}
                             onPress={handleStartGame}
                             activeOpacity={0.8}
@@ -675,6 +693,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>{t('teamConfig.modalAddPlayerTitle', { teamId: activeTeamForAdd })}</Text>
                         <TextInput
+                            testID="team-config-roster-input"
                             style={styles.searchInput}
                             placeholder={t('teamConfig.playerPlaceholder')}
                             placeholderTextColor="#ccc"
@@ -686,7 +705,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                             <TouchableOpacity style={[styles.modalSearchBtn, { backgroundColor: '#ccc' }]} onPress={() => setActiveTeamForAdd(null)}>
                                 <Text style={styles.modalBtnText}>{t('teamConfig.modalCancel')}</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.modalSearchBtn} onPress={addPlayerToRoster}>
+                            <TouchableOpacity testID="team-config-modal-add-btn" style={styles.modalSearchBtn} onPress={addPlayerToRoster}>
                                 <Text style={styles.modalBtnText}>{t('teamConfig.modalAdd')}</Text>
                             </TouchableOpacity>
                         </View>
@@ -785,7 +804,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         fontSize: 18,
         color: '#FFFFFF',
-        borderWidth: 1,
+        borderWidth: 2,
         fontFamily: 'Mulish-Bold',
         textAlign: 'center',
     },
@@ -795,13 +814,18 @@ const styles = StyleSheet.create({
         zIndex: 10,
     },
     vsBadge: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 44,
+        height: 44,
+        borderRadius: 22,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 2,
-        borderColor: '#FFF',
+        borderColor: '#FFD700',
+        shadowColor: '#FFD700',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.8,
+        shadowRadius: 10,
+        elevation: 5,
     },
     vsText: {
         fontFamily: 'Anton',
@@ -981,10 +1005,10 @@ const styles = StyleSheet.create({
         fontFamily: 'Anton',
         fontSize: 16,
         letterSpacing: 1,
+        textAlign: 'center',
     },
     modeTextActive: {
         color: '#001B3A',
-        // fontWeight: 'bold', // Removed, unnecessary for Anton
     },
     durationButton: {
         flex: 1,
@@ -1140,7 +1164,7 @@ const styles = StyleSheet.create({
     newGameTitle: {
         fontFamily: 'Anton',
         fontSize: 22,
-        color: '#a6631c',
+        color: '#FFD700',
         marginBottom: 20,
         letterSpacing: 1,
         textTransform: 'uppercase',

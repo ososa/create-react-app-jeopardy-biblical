@@ -1,0 +1,22 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:8081",
+  "loginUser": "ososam@gmail.com",
+  "loginPassword": "Kenida@2025",
+  "executionArgs": {
+    "projectName": "biblical-jeopardy",
+    "projectPath": "/Users/OsirisSosa/Documents/Biblical Jeopardy Game/biblical-jeopardy",
+    "testIds": [
+      "TC006_Team_Configuration_in_Classic_1v1_Mode.py"
+    ],
+    "additionalInstruction": "Verify that Team Configuration in Classic 1v1 Mode still works after visual changes. Ensure team names can be entered and the game can be started.",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-V7C4AmZ_56OJKvzVgGvAkDP0YFWOGfahSZd53JC_SRw88S3jhXevMYHru7d7mU6IOdfShfguVwhr4VC7wW_SCOUfHbydymy96Su45Ubpqk3hrvK_M0R0fP8bzM6niVCFuRI"
+    }
+  },
+  "serverPort": 50241,
+  "proxy": "http://0a3f0876-c120-438d-9a0a-c1fc42e88482:fsuh7MpO5MZtbVmxdHosFqN27NV4oE0P@tun.testsprite.com:8080"
+}

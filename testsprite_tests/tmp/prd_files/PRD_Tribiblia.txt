@@ -1,0 +1,808 @@
+# Product Requirements Document (PRD)
+## Tribiblia - Biblical Jeopardy Game
+
+**Version:** 1.0.0  
+**Last Updated:** February 13, 2026  
+**Product Owner:** Osiris Sosa  
+**Status:** Active Development
+
+---
+
+## 1. Executive Summary
+
+**Tribiblia** is a Progressive Web Application (PWA) that transforms biblical learning into an engaging, competitive gaming experience. Modeled after the popular game show Jeopardy, Tribiblia allows players to test and strengthen their biblical knowledge through turn-based gameplay in both classic (1v1) and multiplayer (4v4) modes.
+
+### Vision
+To make biblical education accessible, fun, and social through a modern, gamified platform that encourages community learning and spiritual growth.
+
+### Mission
+Provide an agile and entertaining experience that helps users review, memorize, and strengthen their knowledge of the Word while playing, ideal for youth groups, families, and church communities.
+
+---
+
+## 2. Product Overview
+
+### 2.1 Product Type
+- **Platform:** Progressive Web App (PWA)
+- **Accessibility:** Web browsers (mobile and desktop)
+- **Distribution:** Direct web access via [tribiblia.com](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L2-L2)
+- **License:** Proprietary (TRIBIBLIA® registered trademark)
+
+### 2.2 Target Audience
+- Youth groups and church communities
+- Families seeking biblical education tools
+- Individual believers wanting to strengthen their biblical knowledge
+- Spanish, English, and Portuguese-speaking users worldwide
+
+### 2.3 Core Value Propositions
+1. **Gamified Learning:** Transform Bible study into an exciting competition
+2. **Multilingual Support:** Full support for Spanish, English, and Portuguese
+3. **Social Play:** Team-based gameplay fostering community engagement
+4. **Accessibility:** Free-to-use platform accessible from any device
+5. **Progressive Learning:** XP system and gamification mechanics for motivation
+
+---
+
+## 3. Technical Architecture
+
+### 3.1 Technology Stack
+
+#### Frontend
+- **Framework:** [React Native](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L36-L36) (v0.81.5) with [React](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L32-L32) (v19.1.0)
+- **Build Tool:** [Expo](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L20-L20) (~v54.0.30)
+- **UI Components:** 
+  - React Native Core Components
+  - [React Native SVG](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L41-L41) for graphics
+  - [Expo Linear Gradient](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L26-L26) for visual effects
+  - [Canvas Confetti](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L19-L19) for celebrations
+- **Navigation:** [React Navigation](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L15-L16) (Native Stack)
+- **State Management:** React Context API with useReducer
+- **Styling:** React Native StyleSheet API with custom theme system
+
+#### Backend & Infrastructure
+- **Backend as a Service:** [Supabase](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L17-L17) (v2.89.0)
+  - PostgreSQL database
+  - Real-time subscriptions
+  - Row Level Security (RLS)
+  - Authentication system
+- **Hosting:** Hostinger
+- **Analytics:** Google Analytics
+
+#### Key Libraries
+- **Internationalization:** [i18next](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L31-L31) + [react-i18next](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L35-L35)
+- **QR Code Generation:** [react-native-qrcode-svg](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L37-L37)
+- **Document Handling:** [xlsx](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L43-L43) (for Excel import/export)
+- **Storage:** [AsyncStorage](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L14-L14) + [Expo Secure Store](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L28-L28)
+- **Camera:** [Expo Camera](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L22-L22) (QR scanning)
+- **Security:** [Cloudflare Turnstile](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/package.json#L13-L13) CAPTCHA integration
+
+### 3.2 Database Schema
+
+#### Core Tables
+
+**profiles**
+```sql
+- id (UUID, FK to auth.users)
+- email (TEXT)
+- is_admin (BOOLEAN, default: false)
+- created_at (TIMESTAMPTZ)
+```
+
+**categories**
+```sql
+- id (SERIAL, PK)
+- name (TEXT, UNIQUE)
+- icon (TEXT, default: '📖')
+- created_at (TIMESTAMPTZ)
+```
+
+**questions**
+```sql
+- id (SERIAL, PK)
+- category (TEXT)
+- question (TEXT)
+- options (JSONB) -- Array of 4 answer options
+- answer (TEXT)
+- points (INTEGER, default: 100)
+- category_id (FK to categories)
+- reference (TEXT) -- Biblical reference (e.g., "Juan 3:16")
+-- Multilingual fields:
+- question_en, question_pt (TEXT)
+- answer_en, answer_pt (TEXT)
+- options_en, options_pt (JSONB)
+- reference_en, reference_pt (TEXT)
+- created_at (TIMESTAMPTZ)
+```
+
+#### Default Categories
+- 🌍 Génesis (Genesis)
+- 🔥 Éxodo (Exodus)
+- 👑 Reyes (Kings)
+- ✝️ Evangelios (Gospels)
+- 📜 Hechos (Acts)
+- 📢 Profetas (Prophets)
+- Plus: Miracles, Geography, Women of the Bible, etc.
+
+### 3.3 Security Model
+
+**Row Level Security (RLS) Policies:**
+
+1. **Categories:**
+   - Public read access
+   - Admin-only write/modify/delete
+
+2. **Questions:**
+   - Public read access
+   - Admin-only write/modify/delete
+
+3. **Profiles:**
+   - Users can view own profile
+   - Admins can view/modify all profiles
+
+**Admin Verification:**
+- Custom `check_is_admin()` function prevents recursion
+- SECURITY DEFINER functions for admin operations
+
+---
+
+## 4. Core Features
+
+### 4.1 Authentication System
+
+#### Login/Registration Flow
+**Location:** [LoginScreen.tsx](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/LoginScreen.tsx)
+
+**Features:**
+- Email/password authentication via Supabase Auth
+- Guest mode (local-only, no backend)
+- User registration with:
+  - Email validation
+  - Password (min 6 characters)
+  - Username
+  - Avatar selection (emoji)
+  - Terms & Privacy Policy acceptance
+  - CAPTCHA verification (Cloudflare Turnstile)
+- Email confirmation required for new accounts
+- Password recovery flow
+- Session persistence (tokens in SecureStore/LocalStorage)
+
+#### Password Recovery
+**Flow:**
+1. User requests reset → [ForgotPasswordScreen](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/ForgotPasswordScreen.tsx)
+2. Email sent with reset link
+3. User clicks link → redirected to [ResetPasswordScreen](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/ResetPasswordScreen.tsx)
+4. New password set
+5. Auto-login after successful reset
+
+**Implementation Details:**
+- Recovery detection via URL hash parameters (`type=recovery`)
+- Session recovery from URL tokens
+- Error handling for expired tokens
+- Hash cleanup to prevent sticky sessions
+
+### 4.2 Game Modes
+
+#### Classic Mode (1v1)
+- Two players/teams compete
+- Turn-based gameplay
+- Single player per team
+- Quick setup
+
+#### Multiplayer Mode (4v4)
+- Up to 4 players per team
+- Team roster management
+- Turn rotation within teams
+- Remote buzzer support via QR code
+
+**Game Duration Options:**
+- ⚡ **Flash:** 5 minutes (~6 questions)
+- 🕐 **Short:** 15 minutes (~18 questions)
+- 🏆 **Complete:** 30 minutes (~36 questions)
+
+### 4.3 Gameplay Mechanics
+
+#### Question Flow
+**Location:** [GameScreen.tsx](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/GameScreen.tsx)
+
+1. **Team Selection Phase:**
+   - Current team highlighted
+   - Shows active player from team roster
+   
+2. **Category Selection:**
+   - Grid display of available categories
+   - Each category has 5-6 questions
+   - Points vary (100-500 pts)
+   
+3. **Question Display:**
+   - 30-second timer countdown
+   - Multiple choice (4 options)
+   - Biblical reference shown
+   
+4. **Answer Evaluation:**
+   - Instant feedback (Correct/Incorrect)
+   - Points awarded to team
+   - Streak tracking (bonus every 3 correct)
+   
+5. **Turn Switch:**
+   - Automatic rotation to next team
+   - Team roster rotation (multiplayer)
+
+#### Scoring System
+- **Base Points:** 100-500 per question
+- **Streak Bonus:** +50 points every 3 consecutive correct answers
+- **Win Condition:** Highest score when all questions answered
+- **XP Rewards:** +50 XP for game completion
+
+#### Remote Buzzer System
+**Locations:** 
+- [JoinScreen](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/JoinScreen.tsx) 
+- [ControllerScreen](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/ControllerScreen.tsx)
+
+**Flow:**
+1. Host creates game session
+2. QR code displayed on host screen
+3. Players scan QR or enter session ID
+4. Players join with name + avatar
+5. Buzzer interface appears on player devices
+6. Real-time synchronization via Supabase Realtime
+
+### 4.4 Team Configuration
+**Location:** [TeamConfigScreen.tsx](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/TeamConfigScreen.tsx)
+
+**Features:**
+- Custom team names
+- Player roster management (add/remove)
+- Active games display (resume functionality)
+- Game mode selection
+- Duration selection
+- Multiplayer session creation
+- QR code generation for remote players
+
+**Validations:**
+- Multiplayer requires ≥1 player per team
+- No duplicate player names
+- Team name uniqueness
+
+### 4.5 Gamification System
+
+#### Experience Points (XP)
+- Earned through game completion
+- Stored in user metadata and profiles table
+- Persistent across sessions
+- Displayed in profile
+
+#### Rank System
+Progression based on XP:
+1. 🌱 **Explorador Bíblico** (Biblical Explorer) - 0-499 XP
+2. 🐑 **Pastor de Ovejas** (Shepherd) - 500-1499 XP
+3. ✝️ **Discípulo Fiel** (Faithful Disciple) - 1500-2999 XP
+4. 👑 **Maestro de la Ley** (Master of the Law) - 3000+ XP
+
+**Visual Representation:**
+- Progress bar to next rank
+- Current rank badge
+- XP counter
+
+### 4.6 Game History & Profile
+**Locations:** 
+- [ProfileScreen](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/ProfileScreen.tsx)
+- [MyGamesScreen](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/MyGamesScreen.tsx)
+
+**Profile Features:**
+- Avatar display and editing
+- Username management
+- Password change
+- Language selection (ES/EN/PT)
+- XP and rank display
+- Game statistics
+- Logout functionality
+
+**Game History:**
+- List of all played games
+- In-progress games (resume capability)
+- Completed games (view results)
+- Game details:
+  - Team names
+  - Final scores
+  - Winner
+  - Timestamp
+
+### 4.7 Admin Panel
+**Location:** [src/screens/admin](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/admin)
+
+**Admin-only Features:**
+- Category management (CRUD)
+- Question management (CRUD)
+- Excel import/export for questions
+- Multilingual question editing
+- User management
+- Admin role assignment
+
+**Excel Import Format:**
+Supports importing questions with columns:
+- Category
+- Question (ES/EN/PT)
+- Option A, B, C, D (ES/EN/PT)
+- Answer (ES/EN/PT)
+- Points
+- Reference (ES/EN/PT)
+
+**Security:**
+- Protected by `is_admin` flag in profiles
+- Lazy-loaded component for performance
+- RLS policies enforce admin-only access
+
+---
+
+## 5. User Experience & Design
+
+### 5.1 Design System
+
+**Theme:** "Premium Arcade" aesthetic  
+**Color Palette:**
+- Primary: Dark blue gradients (#001B3A → #0D3B66)
+- Accent: Gold (#FFD700) for CTAs and highlights
+- Neon accents: Cyan, magenta, yellow for borders and glows
+- Success: Green tones
+- Error: Red tones
+
+**Typography:**
+- [Anton](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/App.tsx#L271-L271) - Headings and primary buttons (uppercase)
+- [Mulish](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/App.tsx#L272-L274) - Body text (Regular, Bold, ExtraBold)
+
+**Visual Effects:**
+- Linear gradients for backgrounds
+- Glassmorphism for cards
+- Neon glow effects
+- Animated transitions
+- Canvas confetti for celebrations
+- Flip card animations for instructions
+
+### 5.2 Navigation Structure
+
+**Authenticated Users:**
+```
+Login
+├── Instructions (Home)
+│   ├── Team Config
+│   │   └── Game
+│   │       └── Game Over
+│   ├── Join (Buzzer)
+│   │   └── Controller
+│   ├── Profile
+│   │   └── My Games
+│   ├── Admin (admin only)
+│   └── About Us / Privacy / Terms / Cookies
+└── Password Reset (recovery flow)
+```
+
+**Guest/Unauthenticated:**
+```
+Login
+├── Forgot Password
+├── Join (limited)
+├── Controller (limited)
+└── About Us / Privacy / Terms / Cookies
+```
+
+### 5.3 Internationalization (i18n)
+
+**Implementation:** [i18n](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/i18n)
+
+**Supported Languages:**
+- 🇪🇸 Spanish (default)
+- 🇺🇸 English
+- 🇧🇷 Portuguese
+
+**Translation Coverage:**
+- All UI text
+- Questions and answers
+- Error messages
+- Instructions
+- Legal pages (Privacy, Terms, Cookies)
+
+**Language Selection:**
+- Available in Profile screen
+- Persisted in user preferences
+- Auto-detection via browser locale
+
+### 5.4 Responsive Design
+- Mobile-first approach
+- Adaptive layouts for tablet/desktop
+- Touch-optimized controls
+- Fullscreen mode toggle
+- PWA-optimized for home screen installation
+
+---
+
+## 6. Real-time Features
+
+### 6.1 Supabase Realtime Integration
+
+**Use Cases:**
+1. **Multiplayer Sessions:**
+   - Player join/leave notifications
+   - Buzzer press synchronization
+   - Team roster updates
+   
+2. **Global Presence:**
+   - Online player count
+   - Active games counter
+
+**Implementation:**
+- WebSocket connections via Supabase
+- Channel-based pub/sub
+- Presence tracking
+- Automatic reconnection handling
+
+### 6.2 Session Management
+**Context:** [SessionContext](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/context/SessionContext.tsx)
+
+**Features:**
+- Unique session ID generation
+- QR code encoding/decoding
+- Player roster management
+- Session state synchronization
+- Automatic cleanup on game end
+
+---
+
+## 7. Performance & Optimization
+
+### 7.1 Code Splitting
+- Admin panel lazy-loaded
+- Service worker for PWA caching
+- Font loading with SWAP display strategy
+- Image optimization
+
+### 7.2 State Optimization
+- Context API for global state
+- useReducer for complex state logic
+- Memoization with useMemo/useCallback
+- Minimal re-renders
+
+### 7.3 Network Optimization
+- RPC calls for complex queries
+- Batch updates
+- Optimistic UI updates
+- Auto-save for game progress
+
+---
+
+## 8. Security & Privacy
+
+### 8.1 Data Protection
+**Compliance:** GDPR-aligned, applicable to EEE/UK users
+
+**Data Collection:**
+- Email (authentication)
+- Username
+- Avatar (emoji)
+- Game statistics
+- IP address (security)
+- Browser/device data (analytics)
+
+**Data Processing:**
+- Supabase (DB/Auth) - DPA available
+- Hostinger (Hosting) - DPA available
+- Google Analytics (Usage metrics)
+- Buy Me a Coffee (Donations)
+
+**User Rights:**
+- Access request
+- Data rectification
+- Account deletion
+- Export functionality
+
+### 8.2 Authentication Security
+- Password hashing via Supabase Auth
+- Secure token storage
+- Session expiration
+- CAPTCHA for registration
+- Email verification
+- Password reset rate limiting
+
+### 8.3 Application Security
+- Row Level Security (RLS) on all tables
+- SECURITY DEFINER functions
+- Admin role verification
+- Input sanitization
+- HTTPS enforcement
+- CORS configuration
+
+---
+
+## 9. Legal & Compliance
+
+### 9.1 Legal Documents
+**Locations:**
+- [Privacy Policy](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/PrivacyPolicyScreen.tsx)
+- [Terms of Use](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/TermsOfUseScreen.tsx)
+- [Cookies Policy](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/CookiesPolicyScreen.tsx)
+- [About Us](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/src/screens/AboutUsScreen.tsx)
+
+**Company Information:**
+- **Owner:** DMediaGroup SRL
+- **Location:** Santo Domingo, Dominican Republic
+- **Contact:** info@tribiblia.com
+- **Trademark:** TRIBIBLIA® (registered)
+
+### 9.2 Cookie Management
+**Current Implementation:**
+- No cookie consent banner
+- User manages via browser settings
+- Google Analytics opt-out available
+- Essential cookies for functionality
+- Analytics cookies (Google Analytics)
+
+### 9.3 Age Restrictions
+- General audience (all ages)
+- Parental supervision recommended for minors
+- COPPA compliance (US)
+
+---
+
+## 10. Monetization
+
+### 10.1 Current Model
+**Free-to-use platform** with voluntary support
+
+### 10.2 Donation System
+**Provider:** Buy Me a Coffee
+
+**Features:**
+- Voluntary contributions
+- No required payment
+- Third-party payment processing
+- No user data storage for payments
+
+**Purpose:**
+- Cover hosting costs
+- Support development
+- Add new content/features
+- Maintain platform
+
+---
+
+## 11. Future Roadmap
+
+### 11.1 Planned Features
+**Phase 1 - Content Expansion:**
+- [ ] Additional question categories
+- [ ] Question difficulty levels
+- [ ] Custom question sets
+- [ ] Community-submitted questions
+
+**Phase 2 - Enhanced Gameplay:**
+- [ ] Daily challenges
+- [ ] Achievements system
+- [ ] Leaderboard (global/friends)
+- [ ] Tournament mode
+- [ ] Solo practice mode
+
+**Phase 3 - Social Features:**
+- [ ] Friend system
+- [ ] Game invitations
+- [ ] Chat during games
+- [ ] Social sharing
+
+**Phase 4 - Platform Expansion:**
+- [ ] Native mobile apps (iOS/Android)
+- [ ] Offline mode
+- [ ] Desktop app
+- [ ] API for third-party integrations
+
+### 11.2 Technical Improvements
+- [ ] Enhanced analytics dashboard
+- [ ] A/B testing framework
+- [ ] Performance monitoring
+- [ ] Automated testing suite
+- [ ] CI/CD pipeline
+- [ ] Question moderation system
+
+### 11.3 Content Strategy
+- [ ] Weekly new question releases
+- [ ] Themed question packs (holidays, special events)
+- [ ] Difficulty-based question categorization
+- [ ] Expert-reviewed questions
+- [ ] Source verification for biblical references
+
+---
+
+## 12. Analytics & Metrics
+
+### 12.1 Key Performance Indicators (KPIs)
+
+**User Engagement:**
+- Daily Active Users (DAU)
+- Monthly Active Users (MAU)
+- Session duration
+- Games completed per user
+- Retention rate (D1, D7, D30)
+
+**Game Metrics:**
+- Average game duration
+- Questions answered per session
+- Correct answer rate
+- Most popular categories
+- Multiplayer vs. Classic mode usage
+
+**Technical Metrics:**
+- Page load time
+- Time to interactive
+- Error rates
+- API latency
+- Database query performance
+
+### 12.2 Analytics Tools
+- **Google Analytics:** User behavior tracking
+- **Supabase Logs:** Backend monitoring
+- **Browser DevTools:** Performance profiling
+
+---
+
+## 13. Development Workflow
+
+### 13.1 Version Control
+**System:** Git  
+**Repository:** Local + Backup folder  
+**Backup Guide:** [BACKUP_GUIDE.md](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/BACKUP_GUIDE.md)
+
+### 13.2 Build Process
+**Development:**
+```bash
+npm start          # Start Expo dev server
+npm run web        # Web-specific dev mode
+```
+
+**Production:**
+```bash
+npm run build:web  # Create web build (dist/)
+```
+
+**Outputs:**
+- `/dist` - Static web build
+- `dist.zip` - Compressed production bundle
+
+### 13.3 Environment Configuration
+**File:** [.env](file:///Users/OsirisSosa/Documents/Biblical%20Jeopardy%20Game/biblical-jeopardy/.env)
+
+**Variables:**
+- Supabase URL
+- Supabase Anon Key
+- Turnstile Site Key
+- API endpoints
+
+---
+
+## 14. Support & Maintenance
+
+### 14.1 User Support
+**Contact:** info@tribiblia.com  
+**Response Time:** Best effort (volunteer-maintained)
+
+**Support Channels:**
+- Email support
+- FAQ (planned)
+- Community forums (planned)
+
+### 14.2 Bug Reporting
+**Process:**
+1. User reports via email
+2. Issue logged and prioritized
+3. Fix developed and tested
+4. Deploy to production
+5. User notification
+
+### 14.3 Update Frequency
+- **Content Updates:** Weekly (new questions)
+- **Bug Fixes:** As needed
+- **Feature Releases:** Monthly
+- **Dependencies:** Quarterly review
+
+---
+
+## 15. Success Criteria
+
+### 15.1 Launch Goals (Completed)
+- ✅ Functional authentication system
+- ✅ Classic and Multiplayer modes
+- ✅ Multilingual support (ES/EN/PT)
+- ✅ Admin panel for content management
+- ✅ PWA deployment
+- ✅ Legal compliance (Privacy/Terms)
+
+### 15.2 Growth Targets
+**Month 1:**
+- 100+ registered users
+- 500+ games played
+- <2s average load time
+
+**Month 6:**
+- 1,000+ registered users
+- 5,000+ games played
+- 50+ questions per category
+- 90% uptime
+
+**Year 1:**
+- 10,000+ registered users
+- 50,000+ games played
+- Native mobile apps launched
+- Community contribution system
+
+---
+
+## 16. Risks & Mitigation
+
+### 16.1 Technical Risks
+
+| Risk | Impact | Probability | Mitigation |
+|------|--------|-------------|------------|
+| Supabase downtime | High | Low | Local caching, fallback UI |
+| Database scaling issues | High | Medium | Optimize queries, add indexes |
+| PWA compatibility issues | Medium | Low | Progressive enhancement |
+| Security breach | Critical | Low | Regular audits, RLS, monitoring |
+
+### 16.2 Business Risks
+
+| Risk | Impact | Probability | Mitigation |
+|------|--------|-------------|------------|
+| Low user adoption | High | Medium | Marketing, community outreach |
+| Hosting costs exceed budget | Medium | Low | Donation system, optimization |
+| Content quality concerns | Medium | Low | Expert review process |
+| Legal/compliance issues | High | Low | Legal review, GDPR compliance |
+
+---
+
+## 17. Glossary
+
+- **PWA:** Progressive Web App - web application with native-like features
+- **RLS:** Row Level Security - database-level access control
+- **XP:** Experience Points - gamification metric for user progression
+- **CAPTCHA:** Challenge-response test to prevent automated abuse
+- **DPA:** Data Processing Agreement - legal contract for data handling
+- **SCCs:** Standard Contractual Clauses - GDPR-approved data transfer mechanism
+- **GDPR:** General Data Protection Regulation - EU privacy law
+- **COPPA:** Children's Online Privacy Protection Act - US privacy law
+
+---
+
+## 18. Appendices
+
+### Appendix A: File Structure
+```
+biblical-jeopardy/
+├── assets/                    # Images, fonts, icons
+├── src/
+│   ├── components/           # Reusable UI components
+│   ├── context/              # React Context providers
+│   ├── i18n/                 # Translations (ES/EN/PT)
+│   ├── screens/              # Screen components
+│   │   └── admin/           # Admin panel screens
+│   ├── types/                # TypeScript type definitions
+│   └── utils/                # Utility functions
+├── public/                   # Static assets for web
+├── scripts/                  # Build/utility scripts
+├── App.tsx                   # Root component
+└── package.json              # Dependencies & scripts
+```
+
+### Appendix B: Database Functions
+- `check_is_admin()` - Admin role verification
+- `handle_new_user()` - Auto-create profile on signup
+
+### Appendix C: SQL Migration Files
+- `supabase_full_setup.sql` - Initial schema
+- `supabase_admin_setup.sql` - Admin configuration
+- `supabase_add_translations.sql` - Multilingual support
+- `supabase_game_sessions.sql` - Session management
+- `supabase_security_hardening.sql` - RLS policies
+
+---
+
+**Document Control:**
+- **Created:** February 13, 2026
+- **Author:** Development Team
+- **Reviewed By:** Product Owner
+- **Next Review:** Monthly
+- **Version History:** v1.0.0 (Initial Release)

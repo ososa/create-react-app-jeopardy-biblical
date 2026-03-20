@@ -266,7 +266,7 @@ export const QuestionsScreen: React.FC = () => {
                     console.log('Blob size:', blob.size);
                     const arrayBuffer = await blob.arrayBuffer();
                     console.log('ArrayBuffer byteLength:', arrayBuffer.byteLength);
-                    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+                    const workbook = XLSX.read(arrayBuffer, { type: 'array', codepage: 65001 });
                     const sheetName = workbook.SheetNames[0];
                     console.log('Sheet Name:', sheetName);
                     data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
@@ -282,7 +282,7 @@ export const QuestionsScreen: React.FC = () => {
                 const blob = await response.blob();
                 // @ts-ignore
                 const arrayBuffer = await new Response(blob).arrayBuffer();
-                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+                const workbook = XLSX.read(arrayBuffer, { type: 'array', codepage: 65001 });
                 const sheetName = workbook.SheetNames[0];
                 data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
             }
@@ -296,7 +296,9 @@ export const QuestionsScreen: React.FC = () => {
                 const row = data[i];
 
                 // Basic validation: Check Category and Spanish (Base) Question
-                if (!row.Pregunta_ES || !row.Respuesta_ES || !row.Categoria) {
+                // Support both Respuesta_ES and Correcta_ES
+                const respuestaES = row.Respuesta_ES || row.Correcta_ES;
+                if (!row.Pregunta_ES || !respuestaES || !row.Categoria) {
                     errors.push(`Fila ${i + 2}: Faltan datos obligatorios (ES).`);
                     continue;
                 }
@@ -324,29 +326,33 @@ export const QuestionsScreen: React.FC = () => {
                 const optionsPT = getOptions('PT');
 
                 // Validate Spanish options (Mandatory)
-                if (!optionsES.includes(row.Respuesta_ES.toString())) {
+                if (!optionsES.includes(respuestaES.toString())) {
                     errors.push(`Fila ${i + 2}: La respuesta (ES) no coincide con ninguna opción.`);
                     continue;
                 }
 
                 // Prepare Data Object with Translations
+                // Support both naming conventions (Respuesta/Correcta)
+                const respuestaEN = row.Respuesta_EN || row.Correcta_EN || respuestaES;
+                const respuestaPT = row.Respuesta_PT || row.Correta_PT || respuestaES;
+
                 const questionData = {
                     category: matchedCat.name,
                     category_id: matchedCat.id,
                     points: parseInt(row.Puntos) || 100,
                     // Spanish (Default)
                     question: row.Pregunta_ES.toString(),
-                    answer: row.Respuesta_ES.toString(),
+                    answer: respuestaES.toString(),
                     options: optionsES,
                     reference: row.Referencia_ES?.toString() || row.Referencia?.toString() || '',
                     // English
-                    question_en: row.Pregunta_EN?.toString() || row.Pregunta_ES.toString(), // Fallback to ES if missing
-                    answer_en: row.Respuesta_EN?.toString() || row.Respuesta_ES.toString(),
+                    question_en: row.Pregunta_EN?.toString() || row.Question_EN?.toString() || row.Pregunta_ES.toString(), // Fallback to ES if missing
+                    answer_en: respuestaEN.toString(),
                     options_en: optionsEN.length > 0 ? optionsEN : optionsES,
-                    reference_en: row.Referencia_EN?.toString() || row.Referencia_ES?.toString(),
+                    reference_en: row.Referencia_EN?.toString() || row.Reference_EN?.toString() || row.Referencia_ES?.toString(),
                     // Portuguese
-                    question_pt: row.Pregunta_PT?.toString() || row.Pregunta_ES.toString(),
-                    answer_pt: row.Respuesta_PT?.toString() || row.Respuesta_ES.toString(),
+                    question_pt: row.Pergunta_PT?.toString() || row.Pregunta_ES.toString(),
+                    answer_pt: respuestaPT.toString(),
                     options_pt: optionsPT.length > 0 ? optionsPT : optionsES,
                     reference_pt: row.Referencia_PT?.toString() || row.Referencia_ES?.toString(),
                 };

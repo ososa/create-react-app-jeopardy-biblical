@@ -635,7 +635,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                         {state.team1Name.length > 10 ? state.team1Name.substring(0, 10) + '...' : state.team1Name}
                     </Text>
                     <View style={styles.scoreContainer}>
-                        <Text style={styles.score}>{state.team1Score}</Text>
+                        <Text testID="game-score-team1" style={styles.score}>{state.team1Score}</Text>
                     </View>
                     {state.team1Streak > 0 && (
                         <Text style={[styles.streak, { color: ARCADE_THEME.colors.neon.orange }]}>
@@ -665,7 +665,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                         {state.team2Name.length > 10 ? state.team2Name.substring(0, 10) + '...' : state.team2Name}
                     </Text>
                     <View style={[styles.scoreContainer, { borderColor: 'rgb(255, 0, 255)', ...ARCADE_THEME.shadows.neonGlow('rgb(255, 0, 255)') }]}>
-                        <Text style={[styles.score, { color: 'rgb(255, 0, 255)' }]}>{state.team2Score}</Text>
+                        <Text testID="game-score-team2" style={[styles.score, { color: 'rgb(255, 0, 255)' }]}>{state.team2Score}</Text>
                     </View>
                     {state.team2Streak > 0 && (
                         <Text style={[styles.streak, { color: ARCADE_THEME.colors.neon.orange }]}>
@@ -714,6 +714,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                                 const isAnswered = state.answeredQuestions.has(question.id);
                                 return (
                                     <AnimatedCard
+                                        testID={`game-question-card-${question.id}`}
                                         key={question.id}
                                         width={cardWidth} // Pass calculated width
                                         style={{ aspectRatio: 1.6 }} // Removed marginBottom: gap to rely on flex gap
@@ -774,6 +775,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
             {/* Question Modal */}
             <Modal visible={showQuestionModal} transparent animationType="none">
                 <Animated.View
+                    testID="game-question-modal"
                     style={[
                         styles.modalOverlay,
                         { opacity: modalFadeAnim },
@@ -791,7 +793,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                         {selectedQuestion && (
                             <>
                                 <View style={styles.timerContainer}>
-                                    <Text style={[styles.timerText, timer <= 10 && styles.timerUrgent]}>
+                                    <Text testID="game-timer-display" style={[styles.timerText, timer <= 10 && styles.timerUrgent]}>
                                         {timer}
                                     </Text>
 
@@ -812,6 +814,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                                                 {currentOptions && Array.isArray(currentOptions) ? (
                                                     currentOptions.map((option, index) => (
                                                         <TouchableOpacity
+                                                            testID={`game-answer-option-${index}`}
                                                             key={index}
                                                             style={styles.optionButton}
                                                             onPress={() => handleAnswer(option)}
@@ -821,7 +824,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                                                                 colors={[ARCADE_THEME.colors.background.secondary, ARCADE_THEME.colors.background.tertiary]}
                                                                 style={styles.optionGradient}
                                                             >
-                                                                <Text style={styles.optionText}>{option}</Text>
+                                                                <Text testID={`game-answer-text-${index}`} style={styles.optionText}>{option}</Text>
                                                             </LinearGradient>
                                                         </TouchableOpacity>
                                                     ))
@@ -840,7 +843,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
 
             {/* Bonus Modal */}
             <Modal visible={showBonusModal} transparent animationType="none">
-                <Animated.View style={[styles.bonusOverlay, { opacity: bonusFadeAnim }]}>
+                <Animated.View testID="game-bonus-modal" style={[styles.bonusOverlay, { opacity: bonusFadeAnim }]}>
                     <View style={styles.bonusContent}>
                         <Text style={styles.bonusStar}>⭐</Text>
                         <Text style={styles.bonusTitle}>{t('game.bonus')}</Text>
@@ -857,6 +860,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
             {/* Feedback Modal (Emojis) */}
             <Modal visible={showFeedbackModal} transparent animationType="none">
                 <Animated.View
+                    testID="game-feedback-modal"
                     style={[
                         styles.feedbackOverlay,
                         {
@@ -880,7 +884,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                     )}
 
                     {feedbackMessage ? (
-                        <Text style={styles.feedbackText}>{feedbackMessage}</Text>
+                        <Text testID="game-feedback-text" style={styles.feedbackText}>{feedbackMessage}</Text>
                     ) : null}
 
                     {feedbackSubMessage ? (

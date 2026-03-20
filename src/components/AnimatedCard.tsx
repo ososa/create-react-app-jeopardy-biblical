@@ -18,6 +18,7 @@ interface AnimatedCardProps {
     disabled?: boolean;
     width?: number;
     height?: number;
+    testID?: string;
 }
 
 export const AnimatedCard: React.FC<AnimatedCardProps> = ({
@@ -28,7 +29,8 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
     style,
     disabled,
     width,
-    height
+    height,
+    testID
 }) => {
     const { theme } = useTheme();
     const rotate = useSharedValue(isFlipped ? 180 : 0);
@@ -61,6 +63,7 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
 
     return (
         <Pressable
+            testID={testID}
             onPress={onPress}
             disabled={disabled}
             style={[
