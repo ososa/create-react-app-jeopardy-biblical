@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode, useRef } from 'react';
-import { supabase, fetchRandomCategories } from '../utils/supabase';
+import { supabase, fetchRandomCategories, fetchTrainingQuestions } from '../utils/supabase';
 import { RealtimeChannel } from '@supabase/supabase-js';
 import { useAuth } from './AuthContext';
 
@@ -16,7 +16,7 @@ interface SessionContextType {
     isHost: boolean;
     connectedUsers: UserPresence[];
     gameState: any; // Using any for flexibility now, define type later
-    createSession: (categoryLimit?: number, questionsLimit?: number, hostId?: string) => Promise<{ id: string; questions: any[] } | null>;
+    createSession: (categoryLimit?: number, questionsLimit?: number, hostId?: string, isTrainMode?: boolean, categoryId?: number | null) => Promise<{ id: string; questions: any[] } | null>;
     resumeSession: (id: string) => Promise<void>;
     joinSession: (id: string, username: string, team: 1 | 2, avatar: string) => Promise<void>;
     buzzIn: () => Promise<void>;
@@ -58,12 +58,17 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
         await subscribeToSession(id, 'HOST', 0, '👑');
     };
 
-    const createSession = async (categoryLimit: number = 6, questionsLimit: number = 5, hostId?: string) => {
+    const createSession = async (categoryLimit: number = 6, questionsLimit: number = 5, hostId?: string, isTrainMode: boolean = false, categoryId: number | null = null) => {
         try {
             // Use passed hostId or fall back to context user
             const finalHostId = hostId || user?.id || null;
             // 1. Fetch questions first
-            const categories = await fetchRandomCategories(categoryLimit, questionsLimit);
+            let categories;
+            if (isTrainMode) {
+                categories = await fetchTrainingQuestions(categoryId, categoryLimit * questionsLimit);
+            } else {
+                categories = await fetchRandomCategories(categoryLimit, questionsLimit);
+            }
 
             // 2. Prepare initial state
             const initialGameState = {

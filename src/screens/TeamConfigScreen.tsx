@@ -26,7 +26,7 @@ import { RootStackParamList } from '../../App';
 import { useGame } from '../context/GameContext';
 import { useSession } from '../context/SessionContext';
 import { useAuth } from '../context/AuthContext';
-import { supabase, fetchRandomCategories } from '../utils/supabase';
+import { supabase, fetchRandomCategories, fetchAllCategories } from '../utils/supabase';
 import { ARCADE_THEME } from '../constants/theme';
 import { HeaderBackground } from '../components/HeaderBackground';
 import { Footer } from '../components/Footer';
@@ -118,12 +118,13 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
 
     const getGameModeInfo = (game: any) => {
         const gameState = game?.game_state;
-        const isMultiplayer = gameState?.gameMode === 'multiplayer' ||
+        const isMultiplayer = gameState?.gameMode === 'MULTIPLAYER' ||
             (gameState?.team1Roster?.length > 0 || gameState?.team2Roster?.length > 0);
+        const isTrain = gameState?.gameMode === 'TRAIN';
 
         return {
-            label: isMultiplayer ? t('common.multiplayer', 'MULTIJUGADOR') : t('common.classic', 'CLÁSICO'),
-            color: isMultiplayer ? '#FF6B00' : '#FFD700', // Orange vs Gold
+            label: isTrain ? t('teamConfig.trainMode', 'ENTRENAMIENTO') : isMultiplayer ? t('common.multiplayer', 'MULTIJUGADOR') : t('common.classic', 'CLÁSICO'),
+            color: isTrain ? '#FF3B30' : isMultiplayer ? '#FF6B00' : '#FFD700', // Red vs Orange vs Gold
         };
     };
 
@@ -144,12 +145,20 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
     const [team2Name, setTeam2Name] = useState(isEditing ? state.team2Name : 'Equipo 2');
     const [myActiveGames, setMyActiveGames] = useState<any[]>([]);
 
-    const [gameMode, setGameMode] = useState<'CLASSIC' | 'MULTIPLAYER'>('CLASSIC');
+    const [gameMode, setGameMode] = useState<'CLASSIC' | 'MULTIPLAYER' | 'TRAIN'>('CLASSIC');
     const [gameDuration, setGameDuration] = useState<'FLASH' | 'SHORT' | 'FULL'>('FULL');
     const [team1Roster, setTeam1Roster] = useState<string[]>(isEditing ? state.team1Roster : []);
     const [team2Roster, setTeam2Roster] = useState<string[]>(isEditing ? state.team2Roster : []);
     const [newPlayerName, setNewPlayerName] = useState('');
     const [activeTeamForAdd, setActiveTeamForAdd] = useState<1 | 2 | null>(null);
+
+    const [categories, setCategories] = useState<{id: number, name: string}[]>([]);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+    const [showCategoryPicker, setShowCategoryPicker] = useState(false);
+
+    useEffect(() => {
+        fetchAllCategories().then(setCategories);
+    }, []);
 
     // Manual Add Player Logic WITH VALIDATION
     const addPlayerToRoster = () => {
@@ -307,6 +316,7 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
             team2Roster: finalTeam2Roster,
             team1TurnIndex: 0,
             team2TurnIndex: 0,
+            gameMode: gameMode,
         };
 
         const updates: any = {
@@ -318,8 +328,8 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
         let currentSessionId = sessionId;
         if (!currentSessionId) {
             try {
-                console.log('[DEBUG] TeamConfigScreen: calling createSession with:', { gameDuration, categoryCount, questionsPerCategory, userId: user?.id });
-                const sessionResult = await createSession(categoryCount, questionsPerCategory, user?.id);
+                console.log('[DEBUG] TeamConfigScreen: calling createSession with:', { gameDuration, categoryCount, questionsPerCategory, userId: user?.id, gameMode, selectedCategoryId });
+                const sessionResult = await createSession(categoryCount, questionsPerCategory, user?.id, gameMode === 'TRAIN', selectedCategoryId);
                 if (sessionResult) {
                     currentSessionId = sessionResult.id;
                     // Prepare sliced questions for initial state
@@ -443,7 +453,10 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                         </View>
 
                                         <Text style={styles.activeGameVs}>
-                                            {game.game_state?.team1Name || 'Equipo 1'} <Text style={{ color: '#AAA' }}>vs</Text> {game.game_state?.team2Name || 'Equipo 2'}
+                                            {game.game_state?.gameMode === 'TRAIN' 
+                                                ? game.game_state?.team1Name || 'Jugador'
+                                                : <>{game.game_state?.team1Name || 'Equipo 1'} <Text style={{ color: '#AAA' }}>vs</Text> {game.game_state?.team2Name || 'Equipo 2'}</>
+                                            }
                                         </Text>
 
                                         <TouchableOpacity
@@ -485,6 +498,17 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                     <Text style={{ fontFamily: 'Anton', fontSize: 18, letterSpacing: 1 }}>{t('teamConfig.multiplayerMode').split('\n')[0]}</Text>
                                     {'\n'}
                                     <Text style={{ fontFamily: 'Mulish-Regular', fontSize: 11 }}>{t('teamConfig.multiplayerMode').split('\n')[1]}</Text>
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                testID="team-config-mode-train"
+                                style={[styles.modeButton, gameMode === 'TRAIN' && styles.modeButtonActive]}
+                                onPress={() => setGameMode('TRAIN')}
+                            >
+                                <Text style={[styles.modeText, gameMode === 'TRAIN' && styles.modeTextActive]}>
+                                    <Text style={{ fontFamily: 'Anton', fontSize: 18, letterSpacing: 1 }}>{t('teamConfig.trainMode', 'ENTRENA')}</Text>
+                                    {'\n'}
+                                    <Text style={{ fontFamily: 'Mulish-Regular', fontSize: 11 }}>{t('teamConfig.trainModeDesc', 'Juega solo')}</Text>
                                 </Text>
                             </TouchableOpacity>
                         </View>
@@ -532,17 +556,33 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                         <View style={styles.teamsSection}>
                             {/* Team 1 */}
                             <View style={styles.inputGroup}>
-                                <Text style={[styles.label, { color: 'rgb(0, 255, 255)', textShadowColor: 'rgba(0, 255, 255, 0.5)' }]}>{t('teamConfig.team1')}</Text>
+                                <Text style={[styles.label, { color: 'rgb(0, 255, 255)', textShadowColor: 'rgba(0, 255, 255, 0.5)' }]}>
+                                    {gameMode === 'TRAIN' ? t('teamConfig.player', 'JUGADOR') : t('teamConfig.team1')}
+                                </Text>
                                 <TextInput
                                     testID="team-config-team1-input"
                                     style={[styles.input, { borderColor: 'rgb(0, 255, 255)', shadowColor: 'rgb(0, 255, 255)' }]}
                                     value={team1Name}
                                     onChangeText={setTeam1Name}
-                                    placeholder={t('teamConfig.team1Placeholder')}
+                                    placeholder={gameMode === 'TRAIN' ? t('teamConfig.playerPlaceholder', 'Tu Nombre') : t('teamConfig.team1Placeholder')}
                                     placeholderTextColor="rgba(0, 255, 255, 0.5)"
                                     autoCapitalize="words"
-                                    maxLength={10} // Strict limit: 10 chars
+                                    maxLength={15}
                                 />
+
+                                {gameMode === 'TRAIN' && (
+                                    <View style={{ marginTop: 20 }}>
+                                        <Text style={[styles.label, { color: '#FFD700', textShadowColor: 'rgba(255, 215, 0, 0.5)' }]}>{t('teamConfig.category', 'CATEGORÍA A ENTRENAR')}</Text>
+                                        <TouchableOpacity 
+                                            style={[styles.input, { borderColor: '#FFD700', shadowColor: '#FFD700', justifyContent: 'center' }]}
+                                            onPress={() => setShowCategoryPicker(true)}
+                                        >
+                                            <Text style={{ color: selectedCategoryId ? '#FFF' : 'rgba(255, 215, 0, 0.5)', fontSize: 16, fontFamily: 'Mulish-Bold', textAlign: 'center' }}>
+                                                {selectedCategoryId ? categories.find(c => c.id === selectedCategoryId)?.name : t('teamConfig.allCategories', 'Todas (Aleatorio)')}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
 
                                 {/* Manual Roster Team 1 */}
                                 {gameMode === 'MULTIPLAYER' && (
@@ -563,18 +603,20 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                 )}
                             </View>
 
-                            {/* VS Badge */}
-                            <View style={styles.vsContainer}>
-                                <LinearGradient
-                                    colors={['#9C27B0', '#4A0E4E']}
-                                    style={styles.vsBadge}
-                                >
-                                    <Text style={styles.vsText}>VS</Text>
-                                </LinearGradient>
-                            </View>
+                            {gameMode !== 'TRAIN' && (
+                                <>
+                                    {/* VS Badge */}
+                                    <View style={styles.vsContainer}>
+                                        <LinearGradient
+                                            colors={['#9C27B0', '#4A0E4E']}
+                                            style={styles.vsBadge}
+                                        >
+                                            <Text style={styles.vsText}>VS</Text>
+                                        </LinearGradient>
+                                    </View>
 
-                            {/* Team 2 */}
-                            <View style={styles.inputGroup}>
+                                    {/* Team 2 */}
+                                    <View style={styles.inputGroup}>
                                 <Text style={[styles.label, { color: 'rgb(255, 0, 255)', textShadowColor: 'rgba(255, 0, 255, 0.5)' }]}>{t('teamConfig.team2')}</Text>
                                 <TextInput
                                     testID="team-config-team2-input"
@@ -605,6 +647,8 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                     </View>
                                 )}
                             </View>
+                            </>
+                        )}
                         </View>
 
                         {/* Start Game Button (Code Component) */}
@@ -709,6 +753,40 @@ export const TeamConfigScreen: React.FC<TeamConfigScreenProps> = ({ navigation, 
                                 <Text style={styles.modalBtnText}>{t('teamConfig.modalAdd')}</Text>
                             </TouchableOpacity>
                         </View>
+                    </View>
+                </View>
+            </Modal>
+
+            {/* Category Picker Modal */}
+            <Modal
+                visible={showCategoryPicker}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setShowCategoryPicker(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={[styles.modalContent, { maxHeight: '80%' }]}>
+                        <Text style={styles.modalTitle}>{t('teamConfig.selectCategory', 'Selecciona Categoría')}</Text>
+                        <ScrollView style={{ width: '100%', marginBottom: 15 }}>
+                            <TouchableOpacity 
+                                style={[{ padding: 15, borderBottomWidth: 1, borderBottomColor: '#333', width: '100%' }, selectedCategoryId === null && {backgroundColor: 'rgba(255, 215, 0, 0.2)'}]}
+                                onPress={() => { setSelectedCategoryId(null); setShowCategoryPicker(false); }}
+                            >
+                                <Text style={{ color: '#FFF', fontSize: 16, fontFamily: 'Mulish-Bold', textAlign: 'center' }}>{t('teamConfig.allCategories', 'Todas (Aleatorio)')}</Text>
+                            </TouchableOpacity>
+                            {categories.map(cat => (
+                                <TouchableOpacity 
+                                    key={cat.id} 
+                                    style={[{ padding: 15, borderBottomWidth: 1, borderBottomColor: '#333', width: '100%' }, selectedCategoryId === cat.id && {backgroundColor: 'rgba(255, 215, 0, 0.2)'}]}
+                                    onPress={() => { setSelectedCategoryId(cat.id); setShowCategoryPicker(false); }}
+                                >
+                                    <Text style={{ color: '#FFF', fontSize: 16, fontFamily: 'Mulish-Bold', textAlign: 'center' }}>{cat.name}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                        <TouchableOpacity style={[styles.modalSearchBtn, { backgroundColor: '#ccc' }]} onPress={() => setShowCategoryPicker(false)}>
+                            <Text style={styles.modalBtnText}>{t('common.cancel', 'Cancelar')}</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>

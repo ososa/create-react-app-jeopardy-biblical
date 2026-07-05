@@ -11,13 +11,14 @@ const formatDate = (dateString: string) => {
 // Helper for game mode info
 const getGameModeInfo = (game: any, t: any) => {
     const gameState = game?.game_state;
-    const isMultiplayer = gameState?.gameMode === 'multiplayer' ||
+    const isMultiplayer = gameState?.gameMode === 'MULTIPLAYER' ||
         (gameState?.team1Roster?.length > 0 || gameState?.team2Roster?.length > 0);
+    const isTrain = gameState?.gameMode === 'TRAIN';
 
     return {
-        label: isMultiplayer ? t('common.multiplayer', 'MULTIJUGADOR') : t('common.classic', 'CLÁSICO'),
-        color: isMultiplayer ? '#FF6B00' : '#FFD700', // Orange vs Gold
-        borderColor: isMultiplayer ? 'rgba(255, 107, 0, 0.5)' : 'rgba(255, 215, 0, 0.5)'
+        label: isTrain ? t('teamConfig.trainMode', 'ENTRENAMIENTO') : isMultiplayer ? t('common.multiplayer', 'MULTIJUGADOR') : t('common.classic', 'CLÁSICO'),
+        color: isTrain ? '#FF3B30' : isMultiplayer ? '#FF6B00' : '#FFD700', // Red vs Orange vs Gold
+        borderColor: isTrain ? 'rgba(255, 59, 48, 0.5)' : isMultiplayer ? 'rgba(255, 107, 0, 0.5)' : 'rgba(255, 215, 0, 0.5)'
     };
 };
 
@@ -59,7 +60,10 @@ export const GameHistoryList: React.FC<GameHistoryListProps> = ({ games, onResum
                                 <TouchableOpacity onPress={() => onResume(game)}>
                                     <Text style={styles.gameDate}>{formatDate(game.created_at)}</Text>
                                     <Text style={styles.gameVs}>
-                                        {game.game_state?.team1Name || 'Equipo 1'} vs {game.game_state?.team2Name || 'Equipo 2'}
+                                        {game.game_state?.gameMode === 'TRAIN' 
+                                            ? game.game_state?.team1Name || 'Jugador'
+                                            : `${game.game_state?.team1Name || 'Equipo 1'} vs ${game.game_state?.team2Name || 'Equipo 2'}`
+                                        }
                                     </Text>
                                     <Text style={[styles.resumeText, { color: modeInfo.color }]}>{t('profile.resume')}</Text>
                                 </TouchableOpacity>
@@ -91,7 +95,10 @@ export const GameHistoryList: React.FC<GameHistoryListProps> = ({ games, onResum
                                 <TouchableOpacity onPress={() => onResume(game)}>
                                     <Text style={styles.gameDate}>{new Date(game.finished_at || game.created_at).toLocaleDateString()}</Text>
                                     <Text style={styles.gameVs}>
-                                        {game.game_state?.team1Name} ({game.game_state?.team1Score}) - {game.game_state?.team2Name} ({game.game_state?.team2Score})
+                                        {game.game_state?.gameMode === 'TRAIN'
+                                            ? `${game.game_state?.team1Name} (${game.game_state?.team1Score})`
+                                            : `${game.game_state?.team1Name} (${game.game_state?.team1Score}) - ${game.game_state?.team2Name} (${game.game_state?.team2Score})`
+                                        }
                                     </Text>
                                     <Text style={styles.resumeText}>{t('profile.viewResults')}</Text>
                                 </TouchableOpacity>

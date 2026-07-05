@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:web": "expo export -p web"
+    "build:web": "expo export -p web",
+    "build": "npm run build:web && rm -rf build && mv dist build"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.4.1",

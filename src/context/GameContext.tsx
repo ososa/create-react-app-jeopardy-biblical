@@ -45,12 +45,14 @@ interface GameState {
     team2Roster: string[];
     team1TurnIndex: number;
     team2TurnIndex: number;
+    gameMode: 'CLASSIC' | 'MULTIPLAYER' | 'TRAIN';
 }
 
 type GameAction =
     | { type: 'SET_QUESTIONS'; payload: Question[] }
     | { type: 'SET_TEAM_NAMES'; payload: { team1Name: string; team2Name: string } }
     | { type: 'SET_ROSTERS'; payload: { team1Roster: string[]; team2Roster: string[] } } // New Action
+    | { type: 'SET_GAME_MODE'; payload: 'CLASSIC' | 'MULTIPLAYER' | 'TRAIN' }
     | { type: 'ANSWER_CORRECT'; payload: { questionId: number; points: number } }
     | { type: 'ANSWER_WRONG'; payload: { questionId: number } }
     | { type: 'ADD_BONUS'; payload: { team: 1 | 2; bonus: number } }
@@ -77,6 +79,7 @@ const initialState: GameState = {
     team2Roster: [],
     team1TurnIndex: 0,
     team2TurnIndex: 0,
+    gameMode: 'CLASSIC',
 };
 
 function gameReducer(state: GameState, action: GameAction): GameState {
@@ -99,6 +102,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
                 team1TurnIndex: 0,
                 team2TurnIndex: 0,
             };
+
+        case 'SET_GAME_MODE':
+            return { ...state, gameMode: action.payload };
 
         case 'ANSWER_CORRECT': {
             const newAnswered = new Set(state.answeredQuestions);
@@ -140,6 +146,10 @@ function gameReducer(state: GameState, action: GameAction): GameState {
             }
 
         case 'SWITCH_TEAM': {
+            if (state.gameMode === 'TRAIN') {
+                return state; // Do not switch teams in TRAIN mode
+            }
+
             // Rotate the turn index for the team that JUST finished properly? 
             // Actually usually we rotate after they are done. 
             // If currentTeam is 1, and we switch to 2, we should probably rotate team 1's index for NEXT time, OR rotate team 2's index?
@@ -173,6 +183,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
                 team2Name: state.team2Name,
                 team1Roster: state.team1Roster,
                 team2Roster: state.team2Roster,
+                gameMode: state.gameMode,
                 isLoading: false,
             };
 

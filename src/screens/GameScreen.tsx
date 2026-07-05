@@ -152,6 +152,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
             team2Roster: state.team2Roster,
             team1TurnIndex: state.team1TurnIndex,
             team2TurnIndex: state.team2TurnIndex,
+            gameMode: state.gameMode,
         };
 
         try {
@@ -653,26 +654,27 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                     The specific request was to add the menu. 
                     I'll use absolute positioning for the menu as per plan to ensure it sits on top.
                 */}
-                <View style={styles.vsContainer}>
-                    {/* Hidden VS to maintain spacing if needed, or just let the menu sit there.
-                        Actually, let's just keep the header as is and put the menu above everything with absolute position.
-                     */}
-                    <Text style={styles.vsText}>VS</Text>
-                </View>
-
-                <View style={styles.teamScore}>
-                    <Text style={[styles.teamName, { color: 'rgb(255, 0, 255)' }]}>
-                        {state.team2Name.length > 10 ? state.team2Name.substring(0, 10) + '...' : state.team2Name}
-                    </Text>
-                    <View style={[styles.scoreContainer, { borderColor: 'rgb(255, 0, 255)', ...ARCADE_THEME.shadows.neonGlow('rgb(255, 0, 255)') }]}>
-                        <Text testID="game-score-team2" style={[styles.score, { color: 'rgb(255, 0, 255)' }]}>{state.team2Score}</Text>
+                {state.gameMode !== 'TRAIN' && (
+                    <View style={styles.vsContainer}>
+                        <Text style={styles.vsText}>VS</Text>
                     </View>
-                    {state.team2Streak > 0 && (
-                        <Text style={[styles.streak, { color: ARCADE_THEME.colors.neon.orange }]}>
-                            🔥 {t('game.streak')}: {state.team2Streak}
+                )}
+
+                {state.gameMode !== 'TRAIN' && (
+                    <View style={styles.teamScore}>
+                        <Text style={[styles.teamName, { color: 'rgb(255, 0, 255)' }]}>
+                            {state.team2Name.length > 10 ? state.team2Name.substring(0, 10) + '...' : state.team2Name}
                         </Text>
-                    )}
-                </View>
+                        <View style={[styles.scoreContainer, { borderColor: 'rgb(255, 0, 255)', ...ARCADE_THEME.shadows.neonGlow('rgb(255, 0, 255)') }]}>
+                            <Text testID="game-score-team2" style={[styles.score, { color: 'rgb(255, 0, 255)' }]}>{state.team2Score}</Text>
+                        </View>
+                        {state.team2Streak > 0 && (
+                            <Text style={[styles.streak, { color: ARCADE_THEME.colors.neon.orange }]}>
+                                🔥 {t('game.streak')}: {state.team2Streak}
+                            </Text>
+                        )}
+                    </View>
+                )}
             </View>
 
             {/* Current Team Indicator */}
@@ -693,8 +695,11 @@ export const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                     end={{ x: 1, y: 0 }}
                 >
                     <Text style={styles.currentTeamText}>
-                        {t('game.turn')}: {state.currentTeam === 1 ? state.team1Name : state.team2Name}
-                        {(state.currentTeam === 1 ? state.team1Roster[state.team1TurnIndex] : state.team2Roster[state.team2TurnIndex])
+                        {state.gameMode === 'TRAIN' 
+                            ? `${t('teamConfig.player', 'JUGADOR')}: ${state.team1Name}`
+                            : `${t('game.turn')}: ${state.currentTeam === 1 ? state.team1Name : state.team2Name}`
+                        }
+                        {state.gameMode !== 'TRAIN' && (state.currentTeam === 1 ? state.team1Roster[state.team1TurnIndex] : state.team2Roster[state.team2TurnIndex])
                             ? ` - 👤 ${(state.currentTeam === 1 ? state.team1Roster[state.team1TurnIndex] : state.team2Roster[state.team2TurnIndex])}`
                             : ''}
                     </Text>

@@ -56,7 +56,7 @@ export const InstructionFlipCard = () => {
 
     const isMobile = width < 768;
     const cardWidth = isMobile ? '90%' : 600;
-    const cardHeight = isMobile ? 'auto' : 355;
+    const cardHeight = isMobile ? undefined : 355;
     const minHeight = isMobile ? undefined : 355;
 
     return (

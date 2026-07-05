@@ -144,3 +144,79 @@ export const createGameSession = async (categories: any[]) => {
     return null;
   }
 };
+
+// ---------------------------------------------------------
+// NEW FUNCTIONS FOR TRAIN MODE
+// ---------------------------------------------------------
+
+export const fetchAllCategories = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('categories')
+      .select('id, name')
+      .order('name');
+    
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching all categories:', error);
+    return [];
+  }
+};
+
+export const fetchTrainingQuestions = async (categoryId: number | null, questionsLimit: number = 12) => {
+  try {
+    console.log(`[DEBUG] supabase.ts: Fetching training questions. Category: ${categoryId}, Limit: ${questionsLimit}`);
+    
+    if (categoryId) {
+      // Fetch specific category
+      const { data, error } = await supabase
+        .from('categories')
+        .select(`
+            id,
+            name,
+            questions (
+                id,
+                question,
+                answer,
+                points,
+                options,
+                reference,
+                question_en,
+                question_pt,
+                answer_en,
+                answer_pt,
+                options_en,
+                options_pt,
+                reference_en,
+                reference_pt
+            )
+        `)
+        .eq('id', categoryId)
+        .single();
+        
+      if (error) throw error;
+      
+      if (data && data.questions) {
+        // Shuffle the questions of this category
+        const shuffled = [...data.questions].sort(() => 0.5 - Math.random());
+        const limited = shuffled.slice(0, questionsLimit);
+        
+        return [{
+          ...data,
+          questions: limited
+        }];
+      }
+      return [];
+    } else {
+      // If no specific category, just fetch 2 random categories with questionsLimit/2 questions each
+      const catsToFetch = 2; // For example 2 categories
+      const qPerCat = Math.ceil(questionsLimit / catsToFetch);
+      return await fetchRandomCategories(catsToFetch, qPerCat);
+    }
+    
+  } catch (error) {
+    console.error('Error fetching training questions:', error);
+    return [];
+  }
+};

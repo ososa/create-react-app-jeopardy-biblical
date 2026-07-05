@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Platform, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Platform, useWindowDimensions, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useFocusEffect } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import { useAuth } from '../context/AuthContext';
 import { useGame } from '../context/GameContext';
@@ -30,13 +31,15 @@ export const MyGamesScreen: React.FC<MyGamesScreenProps> = ({ navigation }) => {
     const { resumeSession } = useSession();
 
     const [myGames, setMyGames] = useState<any[]>([]);
-    useEffect(() => {
-        if (user) {
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+    const [gameToDelete, setGameToDelete] = useState<string | null>(null);
+    useFocusEffect(
+        React.useCallback(() => {
             if (user) {
                 fetchMyGames();
             }
-        }
-    }, [user]);
+        }, [user])
+    );
 
     const fetchMyGames = async () => {
         if (!user) return;
@@ -65,33 +68,26 @@ export const MyGamesScreen: React.FC<MyGamesScreenProps> = ({ navigation }) => {
         }
     };
 
-    const handleDeleteGame = async (gameId: string) => {
-        const deleteAction = async () => {
-            const { error } = await supabase
-                .from('game_sessions')
-                .delete()
-                .eq('id', gameId);
+    const handleDeleteGame = (gameId: string) => {
+        setGameToDelete(gameId);
+        setDeleteModalVisible(true);
+    };
 
-            if (error) {
-                Alert.alert("Error", "No se pudo eliminar la partida.");
-            } else {
-                setMyGames(prev => prev.filter(g => g.id !== gameId));
-            }
-        };
+    const confirmDelete = async () => {
+        if (!gameToDelete) return;
+        
+        const { error } = await supabase
+            .from('game_sessions')
+            .delete()
+            .eq('id', gameToDelete);
 
-        if (Platform.OS === 'web') {
-            const confirmed = window.confirm("¿Estás seguro? Esta acción no se puede deshacer.");
-            if (confirmed) deleteAction();
+        if (error) {
+            Alert.alert("Error", "No se pudo eliminar la partida. Probablemente falte la política (RLS) en la base de datos.");
         } else {
-            Alert.alert(
-                "Eliminar Partida",
-                "¿Estás seguro? Esta acción no se puede deshacer.",
-                [
-                    { text: "Cancelar", style: "cancel" },
-                    { text: "Eliminar", style: 'destructive', onPress: deleteAction }
-                ]
-            );
+            setMyGames(prev => prev.filter(g => g.id !== gameToDelete));
         }
+        setDeleteModalVisible(false);
+        setGameToDelete(null);
     };
 
     const handleLogout = async () => {
@@ -189,6 +185,29 @@ export const MyGamesScreen: React.FC<MyGamesScreenProps> = ({ navigation }) => {
 
                 <Footer />
             </ScrollView>
+
+            {/* Custom Delete Confirmation Modal */}
+            <Modal
+                visible={deleteModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setDeleteModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>⚠️ Eliminar Partida</Text>
+                        <Text style={styles.modalText}>¿Estás seguro? Esta acción no se puede deshacer y perderás el progreso de esta partida.</Text>
+                        <View style={styles.modalActions}>
+                            <TouchableOpacity style={styles.modalCancelBtn} onPress={() => setDeleteModalVisible(false)}>
+                                <Text style={styles.modalCancelText}>Cancelar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.modalDeleteBtn} onPress={confirmDelete}>
+                                <Text style={styles.modalDeleteText}>Sí, Eliminar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </LinearGradient>
     );
 };
@@ -258,5 +277,67 @@ const styles = StyleSheet.create({
         fontSize: 22,
         letterSpacing: 1,
         textTransform: 'uppercase',
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        zIndex: 1000,
+    },
+    modalContent: {
+        backgroundColor: '#1a1a2e',
+        borderRadius: 20,
+        padding: 25,
+        width: '100%',
+        maxWidth: 400,
+        borderWidth: 2,
+        borderColor: '#EF5350',
+        alignItems: 'center',
+    },
+    modalTitle: {
+        fontSize: 24,
+        fontFamily: 'Anton',
+        color: '#EF5350',
+        marginBottom: 15,
+        letterSpacing: 1,
+    },
+    modalText: {
+        color: '#FFF',
+        fontSize: 16,
+        fontFamily: 'Mulish-Regular',
+        textAlign: 'center',
+        marginBottom: 25,
+        lineHeight: 24,
+    },
+    modalActions: {
+        flexDirection: 'row',
+        gap: 15,
+        width: '100%',
+    },
+    modalCancelBtn: {
+        flex: 1,
+        paddingVertical: 12,
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalCancelText: {
+        color: '#FFF',
+        fontFamily: 'Mulish-Bold',
+        fontSize: 16,
+    },
+    modalDeleteBtn: {
+        flex: 1,
+        paddingVertical: 12,
+        backgroundColor: '#EF5350',
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalDeleteText: {
+        color: '#FFF',
+        fontFamily: 'Mulish-Bold',
+        fontSize: 16,
     },
 });

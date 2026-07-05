@@ -107,7 +107,8 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = ({ navigation, rout
 
         // Award XP for finishing the game
         if (user) {
-            addExperience(50).catch(console.error);
+            const xpReward = state.gameMode === 'TRAIN' ? 20 : 50; // Reduced XP for training
+            addExperience(xpReward).catch(console.error);
         }
 
         // Fire Confetti
@@ -158,7 +159,12 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = ({ navigation, rout
 
                 {/* Winner Announcement */}
                 <Animated.View entering={FadeInDown.delay(500).duration(800)}>
-                    {winner ? (
+                    {state.gameMode === 'TRAIN' ? (
+                        <>
+                            <Text style={[styles.winnerLabel, dynamicStyles.winnerLabel]}>{t('teamConfig.trainMode', 'MODO ENTRENA')}</Text>
+                            <Text style={[styles.winnerName, dynamicStyles.winnerName]}>{t('gameOver.trainingComplete', 'ENTRENAMIENTO COMPLETADO')}</Text>
+                        </>
+                    ) : winner ? (
                         <>
                             <Text style={[styles.winnerLabel, dynamicStyles.winnerLabel]}>{t('gameOver.title')}</Text>
                             <Text style={[styles.winnerName, dynamicStyles.winnerName]}>{t('gameOver.winner', { name: winner })}</Text>
@@ -191,15 +197,19 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = ({ navigation, rout
                         <Text style={[styles.finalScore, dynamicStyles.finalScore]}>{state.team1Score}</Text>
                     </View>
 
-                    <Text style={styles.versus}>VS</Text>
+                    {state.gameMode !== 'TRAIN' && (
+                        <>
+                            <Text style={styles.versus}>VS</Text>
 
-                    <View style={[
-                        styles.scoreBox,
-                        { borderColor: ARCADE_THEME.colors.neon.pink },
-                    ]}>
-                        <Text style={[styles.teamLabel, dynamicStyles.teamLabel, { color: ARCADE_THEME.colors.neon.pink }]}>{state.team2Name}</Text>
-                        <Text style={[styles.finalScore, dynamicStyles.finalScore]}>{state.team2Score}</Text>
-                    </View>
+                            <View style={[
+                                styles.scoreBox,
+                                { borderColor: ARCADE_THEME.colors.neon.pink },
+                            ]}>
+                                <Text style={[styles.teamLabel, dynamicStyles.teamLabel, { color: ARCADE_THEME.colors.neon.pink }]}>{state.team2Name}</Text>
+                                <Text style={[styles.finalScore, dynamicStyles.finalScore]}>{state.team2Score}</Text>
+                            </View>
+                        </>
+                    )}
                 </Animated.View>
 
                 {/* Buttons */}
