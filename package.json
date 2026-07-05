@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build:web": "expo export -p web",
-    "build": "npm run build:web && rm -rf build && mv dist build"
+    "build": "npm run build:web && rm -rf build && mv dist build && cp server.js build/ && echo '{\"name\":\"biblical-jeopardy-server\",\"version\":\"1.0.0\",\"main\":\"server.js\",\"scripts\":{\"start\":\"node server.js\"}}' > build/package.json"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.4.1",
